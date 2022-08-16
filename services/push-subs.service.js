@@ -1,6 +1,26 @@
 import { mysql } from '../utils/mysql.js';
 
 /**
+ * Returns all push subscription records
+ * @param {number} [limit]
+ * @returns {Promise<PushSubscriptionRecord[]>}
+ */
+export function getAllPushSubscriptions(limit) {
+   return new Promise((resolve, reject) => {
+      mysql().query(
+         'SELECT * FROM push_subs ORDER BY id DESC LIMIT ?;',
+         [limit],
+         (err, res) => {
+            if (err) {
+               return reject(err);
+            }
+            resolve(res);
+         }
+      );
+   });
+}
+
+/**
  * Returns all enabled push subscription records
  * @returns {Promise<PushSubscriptionRecord[]>}
  */
@@ -15,13 +35,13 @@ export function getEnabledPushSubscriptions() {
             }
             resolve(res);
          }
-      )
+      );
    });
 }
 
 /**
  * Returns push subscription record by given `id`
- * @param {number} id 
+ * @param {number} id
  * @returns {Promise<PushSubscriptionRecord>}
  */
 export function getPushSubscriptionById(id) {
@@ -35,13 +55,13 @@ export function getPushSubscriptionById(id) {
             }
             resolve(res[0]);
          }
-      )
+      );
    });
 }
 
 /**
  * Inserts new push subscription record
- * @param {Pick<PushSubscriptionRecord, 'user_agent'|'payload'|'tag'>} data 
+ * @param {Pick<PushSubscriptionRecord, 'user_agent'|'payload'|'tag'>} data
  */
 export function createPushSubscription(data) {
    return new Promise((resolve, reject) => {
@@ -54,7 +74,7 @@ export function createPushSubscription(data) {
             }
             resolve(res);
          }
-      )
+      );
    });
 }
 

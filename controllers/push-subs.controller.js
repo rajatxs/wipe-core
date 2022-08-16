@@ -5,10 +5,27 @@ import {
    send500Response,
 } from '../utils/http.js';
 import {
+   getAllPushSubscriptions,
    getPushSubscriptionById,
    createPushSubscription,
    deletePushSubscription,
 } from '../services/push-subs.service.js';
+
+/**
+ * Send all push subscription records
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function sendAllPushSubscriptions(req, res) {
+   const limit = Number(req.query.limit) || 10;
+
+   try {
+      const records = await getAllPushSubscriptions(limit);
+      send200Response(res, "All push subscriptions", records);
+   } catch (error) {
+      send500Response(res, "Couldn't get push subscriptions");
+   }
+}
 
 /**
  * Send push subscription record by given id param
