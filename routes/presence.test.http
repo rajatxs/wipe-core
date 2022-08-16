@@ -1,0 +1,15 @@
+
+### Returns presence history records 
+GET {{BASE_URL}}/presence?subid=1
+
+### Returns last presence history record
+GET {{BASE_URL}}/presence?subid=1&limit=1
+
+### Returns presence history record
+GET {{BASE_URL}}/presence/64
+
+### Delete presence history record
+DELETE {{BASE_URL}}/presence/57
+
+### Delete all presence history record
+DELETE {{BASE_URL}}/presence?subid=1

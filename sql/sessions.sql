@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS `sessions` (
+   id INT(8) AUTO_INCREMENT,
+   sha256 VARCHAR(64) NOT NULL,
+   archive BLOB NOT NULL,
+   tag VARCHAR(8),
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+   PRIMARY KEY(id)
+);

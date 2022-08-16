@@ -1,0 +1,9 @@
+{
+   "compilerOptions": {
+      "allowJs": true,
+      "checkJs": true,
+      "alwaysStrict": false,
+      "strict": false,
+      "types": ["index.d.ts"]
+   }
+}

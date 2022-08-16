@@ -1,0 +1,30 @@
+
+### Returns all subscriptions
+GET {{BASE_URL}}/subs
+
+### Returns subscription record by id
+GET {{BASE_URL}}/subs/1
+
+### Add new subscription
+POST {{BASE_URL}}/subs
+Content-Type: application/json
+
+{
+   "alias": "Test",
+   "event": "presence.update",
+   "phone": "101010101010",
+   "tag": "RESTCL"
+}
+
+### Update subscription
+PUT {{BASE_URL}}/subs/15
+Content-Type: application/json
+
+{
+   "alias": "New alias",
+   "enabled": 0,
+   "notify": 0
+}
+
+### Delete subscription
+DELETE {{BASE_URL}}/subs/16

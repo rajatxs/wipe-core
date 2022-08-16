@@ -1,0 +1,16 @@
+
+### Returns push subscription record
+GET {{BASE_URL}}/push-subs/9
+
+### Add push subscription 
+POST {{BASE_URL}}/push-subs
+Content-Type: application/json
+
+{
+   "user_agent": "Mozilla/1.0",
+   "payload": "{}",
+   "tag": "RESTCL"
+}
+
+### Delete push subscription
+DELETE {{BASE_URL}}/push-subs/9

@@ -1,0 +1,8 @@
+
+### Generate new auth token
+POST {{BASE_URL}}/auth/token
+Content-Type: application/json
+
+{
+   "secret": "TEST"
+}
