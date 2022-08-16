@@ -7,8 +7,9 @@
     "start:env": "env-cmd node scripts/start.js",
     "test": "mocha services",
     "test:env": "env-cmd mocha services",
-    "session:upload": "env-cmd node scripts/upload-session.js",
-    "session:restore": "env-cmd node scripts/restore-session.js"
+    "session:upload": "env-cmd node scripts/session-upload.js",
+    "session:restore": "env-cmd node scripts/session-restore.js",
+    "auth:token": "env-cmd node scripts/auth-token.js"
   },
   "author": {
     "name": "Rajat Sharma",
