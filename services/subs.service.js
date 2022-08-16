@@ -1,4 +1,5 @@
 import { mysql } from '../utils/mysql.js';
+import { deletePresenceHistoryRecordBySubId } from './presence.service.js';
 
 /**
  * Returns subscription record by given `id`
@@ -27,17 +28,13 @@ export function getSubscriptionById(id) {
  */
 export function getAllSubscriptions() {
    return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM subs ORDER BY id DESC;',
-         [],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
+      mysql().query('SELECT * FROM subs ORDER BY id DESC;', [], (err, res) => {
+         if (err) {
+            return reject(err);
          }
-      );
+
+         resolve(res);
+      });
    });
 }
 
@@ -137,17 +134,21 @@ export function updateSubscription(id, data) {
  * @param {number} id
  */
 export function deleteSubscription(id) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'DELETE FROM subs WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
+   return new Promise(function (resolve, reject) {
+      deletePresenceHistoryRecordBySubId(id)
+         .then(function () {
+            mysql().query(
+               'DELETE FROM subs WHERE id = ? LIMIT 1;',
+               [id],
+               (err, res) => {
+                  if (err) {
+                     return reject(err);
+                  }
 
-            resolve(res);
-         }
-      );
+                  resolve(res);
+               }
+            );
+         })
+         .catch(reject);
    });
 }
