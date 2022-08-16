@@ -6,6 +6,7 @@ import {
    jidEncode,
    jidDecode,
 } from '@adiwajshing/baileys/lib/WABinary/jid-utils.js';
+import logger from '../utils/logger.js';
 
 /** @type {Map<string, number>} */
 const presenceUpdateCounts = new Map();
@@ -76,7 +77,7 @@ export async function dispatchPresenceUpdateEvent(event) {
          });
    
          if (res.affectedRows > 0) {
-            console.log(`PRESENCE sub_id=${sub_id} status=${status}`);
+            logger.info('observer:service', `presence update sub_id=${sub_id} status=${status}`);
          }
    
          if (subs.notify === 1) {
@@ -99,7 +100,7 @@ export async function registerPresenceUpdateEvent(socket) {
    let subsPromises = subslist.map(async (subs) => {
       const jid = jidEncode(subs.phone, 's.whatsapp.net');
       await socket.presenceSubscribe(jid);
-      console.log(`SUBSCRIBE [${subs.event}] ${subs.id}`);
+      logger.info('observer:service', `subscribe event=${subs.event} id=${subs.id}`)
    });
 
    return Promise.all(subsPromises);

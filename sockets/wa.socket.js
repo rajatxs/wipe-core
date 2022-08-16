@@ -9,6 +9,7 @@ import {
    dispatchPresenceUpdateEvent,
    resetPresenceUpdateCounts,
 } from '../services/observer.service.js';
+import logger from '../utils/logger.js';
 
 /** @type {import('@adiwajshing/baileys').MessageRetryMap} */
 const msgRetryCounterMap = {};
@@ -40,7 +41,7 @@ export async function openWASocket() {
             ) {
                openWASocket();
             } else {
-               console.log("'Connection closed. You are logged out.");
+               logger.warn('wa:socket', 'connection closed');
             }
          }
 

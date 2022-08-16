@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { PORT } from '../config/config.js';
 import routes from '../routes/routes.js';
+import logger from '../utils/logger.js';
 
 /** @type {express.Application} */
 var app;
@@ -27,7 +28,7 @@ export function startHttpServer() {
       server = app.listen(PORT);
 
       server.on('listening', function() {
-         console.log("SERVER RUNNING ON PORT", PORT);
+         logger.info('http:server', 'running on port', PORT);
          resolve(server);
       });
       server.on('error', function(err) {

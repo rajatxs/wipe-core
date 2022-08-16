@@ -76,7 +76,6 @@ export async function updateSubscriptionById(req, res) {
       const result = await updateSubscription(id, data);
       send200Response(res, 'Subscription updated', result);
    } catch (error) {
-      console.log(error);
       send500Response(res, "Couldn't update subscription");
    }
 }
