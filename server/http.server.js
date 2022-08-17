@@ -33,6 +33,7 @@ export function startHttpServer() {
 
       // Handle 500
       app.use(function (error, req, res, next) {
+         logger.error('http:error', error.message, error);
          send500Response(res, error.message || 'Something went wrong');
       });
 
