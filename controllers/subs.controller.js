@@ -1,6 +1,5 @@
 import {
    send200Response,
-   send500Response,
    send404Response,
    send201Response,
 } from '../utils/http.js';
@@ -22,7 +21,7 @@ export async function sendAllSubscriptions(req, res) {
       const subs = await getAllSubscriptions();
       send200Response(res, 'All subscriptions', subs);
    } catch (error) {
-      send500Response(res, "Couldn't get subscriptions");
+      throw new Error("Couldn't get subscriptions");
    }
 }
 
@@ -43,7 +42,7 @@ export async function sendSubscriptionById(req, res) {
          send404Response(res, 'Subscription not found');
       }
    } catch (error) {
-      send500Response(res, "Couldn't get subscription");
+      throw new Error("Couldn't get subscription");
    }
 }
 
@@ -59,7 +58,7 @@ export async function addNewSubscription(req, res) {
       const response = await createSubscription(data);
       send201Response(res, 'Subscription added', response);
    } catch (error) {
-      send500Response(res, "Couldn't add new subscription");
+      throw new Error("Couldn't add new subscription");
    }
 }
 
@@ -76,7 +75,7 @@ export async function updateSubscriptionById(req, res) {
       const result = await updateSubscription(id, data);
       send200Response(res, 'Subscription updated', result);
    } catch (error) {
-      send500Response(res, "Couldn't update subscription");
+      throw new Error("Couldn't update subscription");
    }
 }
 
@@ -92,6 +91,6 @@ export async function deleteSubscriptionById(req, res) {
       const result = await deleteSubscription(id);
       send200Response(res, 'Subscription deleted', result);
    } catch (error) {
-      send500Response(res, "Couldn't delete subscription");
+      throw new Error("Couldn't delete subscription");
    }
 }

@@ -1,7 +1,6 @@
 import {
    send201Response,
    send400Response,
-   send500Response,
 } from '../utils/http.js';
 import { generateToken } from '../services/auth.service.js';
 import { AUTH_SECRET } from '../config/config.js';
@@ -24,6 +23,6 @@ export async function sendNewAuthToken(req, res) {
    try {
       send201Response(res, 'Token generated', { token });
    } catch (error) {
-      send500Response(res, "Couldn't generate new token");
+      throw new Error("Couldn't generate new token");
    }
 }

@@ -2,7 +2,6 @@ import {
    send200Response,
    send201Response,
    send404Response,
-   send500Response,
 } from '../utils/http.js';
 import {
    getAllPushSubscriptions,
@@ -23,7 +22,7 @@ export async function sendAllPushSubscriptions(req, res) {
       const records = await getAllPushSubscriptions(limit);
       send200Response(res, "All push subscriptions", records);
    } catch (error) {
-      send500Response(res, "Couldn't get push subscriptions");
+      throw new Error("Couldn't get push subscriptions");
    }
 }
 
@@ -44,7 +43,7 @@ export async function sendPushSubscriptionById(req, res) {
          send404Response(res, 'Push subscription not found');
       }
    } catch (error) {
-      send500Response(res, "Couldn't get push subscription");
+      throw new Error("Couldn't get push subscription");
    }
 }
 
@@ -60,7 +59,7 @@ export async function addNewPushSubscription(req, res) {
       const result = await createPushSubscription(data);
       send201Response(res, 'Push subscription added', result);
    } catch (error) {
-      send500Response(res, "Couldn't add push subscription");
+      throw new Error("Couldn't add push subscription");
    }
 }
 
@@ -76,6 +75,6 @@ export async function deleteSinglePushSubscription(req, res) {
       const result = await deletePushSubscription(id);
       send200Response(res, 'Push subscription deleted', result);
    } catch (error) {
-      send500Response(res, "Couldn't delete push subscription");
+      throw new Error("Couldn't delete push subscription");
    }
 }
