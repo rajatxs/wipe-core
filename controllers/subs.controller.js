@@ -10,6 +10,9 @@ import {
    updateSubscription,
    deleteSubscription,
 } from '../services/subs.service.js';
+import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
+import logger from '../utils/logger.js';
+import { format } from 'util';
 
 /**
  * Sends all subscription records
@@ -52,10 +55,17 @@ export async function sendSubscriptionById(req, res) {
  * @param {import('express').Response} res
  */
 export async function addNewSubscription(req, res) {
+   /** @type {Subscription} */
    const data = req.body;
 
    try {
       const response = await createSubscription(data);
+      const subs = await getSubscriptionById(response.insertId);
+      await registerSocketEventBySubscription(subs);
+      logger.info(
+         'subs:controller',
+         format('subscribe event=%s id=%d', subs.event, subs.id)
+      );
       send201Response(res, 'Subscription added', response);
    } catch (error) {
       throw new Error("Couldn't add new subscription");
