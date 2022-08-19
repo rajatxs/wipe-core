@@ -13,21 +13,25 @@ import logger from '../utils/logger.js';
 
 /** @type {import('@adiwajshing/baileys').MessageRetryMap} */
 const msgRetryCounterMap = {};
-var waSocket;
+var _waSocket;
+
+export function waSocket() {
+   return _waSocket;
+}
 
 export async function openWASocket() {
    const { state, saveCreds } = await useMultiFileAuthState(SESSION_ROOT);
    const { version } = await fetchLatestBaileysVersion();
 
    // @ts-ignore
-   waSocket = makeWASocket.default({
+   _waSocket = makeWASocket.default({
       version,
       printQRInTerminal: true,
       auth: state,
       msgRetryCounterMap,
    });
 
-   waSocket.ev.process(async (events) => {
+   _waSocket.ev.process(async (events) => {
       if (events['connection.update']) {
          const update = events['connection.update'];
          const { connection, lastDisconnect } = update;
@@ -47,9 +51,9 @@ export async function openWASocket() {
 
          if (connection === 'open') {
             try {
-               await registerPresenceUpdateEvent(waSocket);
+               await registerPresenceUpdateEvent();
             } catch (error) {
-               console.error("Couldn't get presence", error);
+               logger.error("wa:socket", "couldn't subscribe socket events", error);
             }
          }
       }
@@ -64,11 +68,11 @@ export async function openWASocket() {
       }
    });
 
-   return waSocket;
+   return _waSocket;
 }
 
 export function closeWASocket() {
-   if (waSocket) {
-      waSocket.end(null);
+   if (_waSocket) {
+      _waSocket.end(null);
    }
 }
