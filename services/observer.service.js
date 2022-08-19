@@ -2,10 +2,7 @@ import { getSubscriptions, getSubscriptionByPhone } from './subs.service.js';
 import { insertPresenceHistoryRecord } from './presence.service.js';
 import { sendPresenceUpdateNotification } from './push.service.js';
 import { TAG } from '../config/config.js';
-import {
-   jidEncode,
-   jidDecode,
-} from '@adiwajshing/baileys/lib/WABinary/jid-utils.js';
+import { jidDecode } from '@adiwajshing/baileys/lib/WABinary/jid-utils.js';
 import { format } from 'util';
 import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
 import logger from '../utils/logger.js';
