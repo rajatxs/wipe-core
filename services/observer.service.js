@@ -6,6 +6,8 @@ import {
    jidEncode,
    jidDecode,
 } from '@adiwajshing/baileys/lib/WABinary/jid-utils.js';
+import { format } from 'util';
+import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
 import logger from '../utils/logger.js';
 
 /** @type {Map<string, number>} */
@@ -13,7 +15,7 @@ const presenceUpdateCounts = new Map();
 
 /**
  * Increments presence update count by given `jid`
- * @param {string} jid 
+ * @param {string} jid
  */
 export function incrementPresenceUpdateCount(jid) {
    if (!presenceUpdateCounts.has(jid)) {
@@ -30,7 +32,7 @@ export function resetPresenceUpdateCounts() {
 
 /**
  * Dispatch presence update event
- * @param {object} event 
+ * @param {object} event
  * @returns {Promise<any>}
  */
 export async function dispatchPresenceUpdateEvent(event) {
@@ -46,7 +48,7 @@ export async function dispatchPresenceUpdateEvent(event) {
    }
 
    incrementPresenceUpdateCount(jid);
-   
+
    if ('lastKnownPresence' in props) {
       // should track available status
       if (props.lastKnownPresence === 'available') {
@@ -75,11 +77,14 @@ export async function dispatchPresenceUpdateEvent(event) {
             sub_id,
             tag: TAG,
          });
-   
+
          if (res.affectedRows > 0) {
-            logger.info('observer:service', `presence update sub_id=${sub_id} status=${status}`);
+            logger.info(
+               'observer:service',
+               `presence update sub_id=${sub_id} status=${status}`
+            );
          }
-   
+
          if (subs.notify === 1) {
             return sendPresenceUpdateNotification(subs, status);
          }
@@ -92,15 +97,16 @@ export async function dispatchPresenceUpdateEvent(event) {
 
 /**
  * Register presence update event
- * @param {any} socket
  * @returns {Promise<any>}
  */
-export async function registerPresenceUpdateEvent(socket) {
+export async function registerPresenceUpdateEvent() {
    const subslist = await getSubscriptions('presence.update', 5);
    let subsPromises = subslist.map(async (subs) => {
-      const jid = jidEncode(subs.phone, 's.whatsapp.net');
-      await socket.presenceSubscribe(jid);
-      logger.info('observer:service', `subscribe event=${subs.event} id=${subs.id}`)
+      await registerSocketEventBySubscription(subs);
+      logger.info(
+         'observer:service',
+         format('subscribe event=%s id=%d', subs.event, subs.id)
+      );
    });
 
    return Promise.all(subsPromises);
