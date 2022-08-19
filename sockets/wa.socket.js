@@ -74,5 +74,6 @@ export async function openWASocket() {
 export function closeWASocket() {
    if (_waSocket) {
       _waSocket.end(null);
+      _waSocket = null;
    }
 }
