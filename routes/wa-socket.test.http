@@ -1,0 +1,3 @@
+
+### Close socket connection
+GET {{BASE_URL}}/wa-socket/close
