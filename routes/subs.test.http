@@ -1,13 +1,16 @@
 
 ### Returns all subscriptions
 GET {{BASE_URL}}/subs
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns subscription record by id
-GET {{BASE_URL}}/subs/1
+GET {{BASE_URL}}/subs/19
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Add new subscription
 POST {{BASE_URL}}/subs
 Content-Type: application/json
+X-Auth-Token: {{AUTH_TOKEN}}
 
 {
    "alias": "Test",
@@ -17,8 +20,9 @@ Content-Type: application/json
 }
 
 ### Update subscription
-PUT {{BASE_URL}}/subs/15
+PUT {{BASE_URL}}/subs/25
 Content-Type: application/json
+X-Auth-Token: {{AUTH_TOKEN}}
 
 {
    "alias": "New alias",
@@ -27,4 +31,5 @@ Content-Type: application/json
 }
 
 ### Delete subscription
-DELETE {{BASE_URL}}/subs/16
+DELETE {{BASE_URL}}/subs/24
+X-Auth-Token: {{AUTH_TOKEN}}
