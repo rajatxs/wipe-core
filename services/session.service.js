@@ -113,6 +113,48 @@ export function getSessionRecordById(id) {
 }
 
 /**
+ * Returns session details by given `id`
+ * @param {number} id 
+ * @returns {Promise<Omit<SessionRecord, 'archive'>>}
+ */
+export function getSessionDetailsById(id) {
+   return new Promise(function (resolve, reject) {
+      mysql().query(
+         'SELECT id, sha256, tag, created_at FROM sessions WHERE id = ? LIMIT 1;',
+         [id],
+         (err, res) => {
+            if (err) {
+               return reject(err);
+            }
+
+            resolve(res[0]);
+         }
+      );
+   });
+}
+
+/**
+ * Returns all session detail records
+ * @param {number} [limit]
+ * @returns {Promise<SessionRecord[]>}
+ */
+export function getAllSessionDetails(limit) {
+   return new Promise(function (resolve, reject) {
+      mysql().query(
+         'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT ?;',
+         [limit],
+         (err, res) => {
+            if (err) {
+               return reject(err);
+            }
+
+            resolve(res);
+         }
+      );
+   });
+}
+
+/**
  * Returns latest session details
  * @returns {Promise<Omit<SessionRecord, 'archive'>>}
  */
@@ -189,6 +231,27 @@ export function checkSessionRecordBySHA256(sha256) {
             }
 
             resolve(Boolean(res.length));
+         }
+      );
+   });
+}
+
+/**
+ * Deletes session record by given `id`
+ * @param {number} id
+ * @returns {Promise<object>}
+ */
+export function deleteSessionById(id) {
+   return new Promise(function (resolve, reject) {
+      mysql().query(
+         'DELETE FROM sessions WHERE id = ? LIMIT 1;',
+         [id],
+         (err, res) => {
+            if (err) {
+               return reject(err);
+            }
+
+            resolve(res);
          }
       );
    });
