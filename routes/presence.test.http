@@ -1,15 +1,20 @@
 
 ### Returns presence history records 
-GET {{BASE_URL}}/presence?subid=1
+GET {{BASE_URL}}/presence?subid=19
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns last presence history record
-GET {{BASE_URL}}/presence?subid=1&limit=1
+GET {{BASE_URL}}/presence?subid=19&limit=1
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns presence history record
-GET {{BASE_URL}}/presence/64
+GET {{BASE_URL}}/presence/150
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Delete presence history record
-DELETE {{BASE_URL}}/presence/57
+DELETE {{BASE_URL}}/presence/149
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Delete all presence history record
-DELETE {{BASE_URL}}/presence?subid=1
+DELETE {{BASE_URL}}/presence?subid=19
+X-Auth-Token: {{AUTH_TOKEN}}
