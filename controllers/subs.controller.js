@@ -10,6 +10,7 @@ import {
    updateSubscription,
    deleteSubscription,
 } from '../services/subs.service.js';
+import { waSocket } from '../sockets/wa.socket.js';
 import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
 import logger from '../utils/logger.js';
 import { format } from 'util';
@@ -61,11 +62,15 @@ export async function addNewSubscription(req, res) {
    try {
       const response = await createSubscription(data);
       const subs = await getSubscriptionById(response.insertId);
-      await registerSocketEventBySubscription(subs);
-      logger.info(
-         'subs:controller',
-         format('subscribe event=%s id=%d', subs.event, subs.id)
-      );
+
+      if (waSocket()) {
+         await registerSocketEventBySubscription(subs);
+         logger.info(
+            'subs:controller',
+            format('subscribe event=%s id=%d', subs.event, subs.id)
+         );
+      }
+
       send201Response(res, 'Subscription added', response);
    } catch (error) {
       throw new Error("Couldn't add new subscription");
