@@ -3,6 +3,7 @@ import cors from 'cors';
 import { PORT } from '../config/config.js';
 import routes from '../routes/routes.js';
 import logger from '../utils/logger.js';
+import { rootMiddleware } from '../middlewares/root.middleware.js';
 import { send404Response, send500Response } from '../utils/http.js';
 
 /** @type {express.Application} */
@@ -24,6 +25,7 @@ export function startHttpServer() {
          allowedHeaders: ['Content-Type', 'X-Auth-Token', 'X-Tag'],
          methods: ['GET', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE'],
       }));
+      app.use(rootMiddleware);
       app.use(routes);
 
       // Handle 404
