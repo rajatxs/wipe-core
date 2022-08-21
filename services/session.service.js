@@ -6,9 +6,10 @@ import AdmZip from 'adm-zip';
 
 /**
  * Generates archive from session and uploads to a database
+ * @param {string} [tag]
  * @returns {Promise<object>}
  */
-export function uploadSession() {
+export function uploadSession(tag = TAG) {
    return new Promise(function (resolve, reject) {
       const zip = new AdmZip();
 
@@ -26,7 +27,6 @@ export function uploadSession() {
          try {
             const archive = await zip.toBufferPromise();
             const sha256 = generateArchiveSHA256(archive);
-            const tag = TAG;
 
             // check for duplication
             if (await checkSessionRecordBySHA256(sha256)) {
