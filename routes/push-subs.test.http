@@ -1,13 +1,16 @@
 ### Returns all push subscriptions
 GET {{BASE_URL}}/push-subs
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns push subscription record
 GET {{BASE_URL}}/push-subs/12
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Add push subscription 
 POST {{BASE_URL}}/push-subs
+X-Tag: {{TAG}}
 Content-Type: application/json
 X-Auth-Token: {{AUTH_TOKEN}}
 
@@ -19,4 +22,5 @@ X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Delete push subscription
 DELETE {{BASE_URL}}/push-subs/12
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}

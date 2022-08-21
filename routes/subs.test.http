@@ -1,15 +1,18 @@
 
 ### Returns all subscriptions
 GET {{BASE_URL}}/subs
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns subscription record by id
 GET {{BASE_URL}}/subs/19
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Add new subscription
 POST {{BASE_URL}}/subs
 Content-Type: application/json
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 {
@@ -22,6 +25,7 @@ X-Auth-Token: {{AUTH_TOKEN}}
 ### Update subscription
 PUT {{BASE_URL}}/subs/25
 Content-Type: application/json
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 {
@@ -32,4 +36,5 @@ X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Delete subscription
 DELETE {{BASE_URL}}/subs/24
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}

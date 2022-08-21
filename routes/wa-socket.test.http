@@ -1,11 +1,14 @@
 ### Returns socket connection status
 GET {{BASE_URL}}/wa-socket/status
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Open socket connection
 PUT {{BASE_URL}}/wa-socket/open
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Close socket connection
 PUT {{BASE_URL}}/wa-socket/close
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}

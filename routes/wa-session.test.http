@@ -1,24 +1,30 @@
 
 ### Returns all sessions
 GET {{BASE_URL}}/wa-session
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns specific session by id
 GET {{BASE_URL}}/wa-session/59
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns latest session
 GET {{BASE_URL}}/wa-session?limit=1
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Uploads latest session
 PUT {{BASE_URL}}/wa-session/upload
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Restore latest session
 PUT {{BASE_URL}}/wa-session/restore
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Delete specific session by id
 DELETE {{BASE_URL}}/wa-session/58
+X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
