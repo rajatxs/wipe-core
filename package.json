@@ -11,7 +11,8 @@
     "session:upload": "env-cmd node scripts/session-upload.js",
     "session:restore": "env-cmd node scripts/session-restore.js",
     "auth:token": "env-cmd node scripts/auth-token.js",
-    "query": "env-cmd node scripts/query.js"
+    "query": "env-cmd node scripts/query.js",
+    "subs:add": "env-cmd node scripts/subs-add.js"
   },
   "author": {
     "name": "Rajat Sharma",
