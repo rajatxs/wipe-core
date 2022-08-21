@@ -21,7 +21,7 @@ export function startHttpServer() {
       app.use(express.json());
       app.use(cors({
          origin: '*',
-         allowedHeaders: ['X-Auth-Token', 'X-Tag'],
+         allowedHeaders: ['Content-Type', 'X-Auth-Token', 'X-Tag'],
          methods: ['GET', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE'],
       }));
       app.use(routes);
