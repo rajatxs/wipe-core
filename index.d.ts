@@ -1,3 +1,13 @@
+declare interface AppRequestLocals {
+   tag?: string;
+}
+
+declare namespace Express {
+   interface Request {
+      locals: AppRequestLocals
+   }
+}
+
 declare type SubscriptionEvent = 'presence.update';
 
 declare interface Subscription {
