@@ -70,7 +70,7 @@ export async function sendSessionDetailsByGivenId(req, res, next) {
  */
 export async function requestToUploadSession(req, res, next) {
    try {
-      await uploadSession();
+      await uploadSession(req.locals.tag);
       send200Response(res, 'Session uploaded');
    } catch (error) {
       next(new Error("Couldn't upload session"));

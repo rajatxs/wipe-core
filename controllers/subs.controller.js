@@ -58,6 +58,7 @@ export async function sendSubscriptionById(req, res) {
 export async function addNewSubscription(req, res) {
    /** @type {Subscription} */
    const data = req.body;
+   data.tag = req.locals.tag;
 
    try {
       const response = await createSubscription(data);
