@@ -2,6 +2,8 @@
    "compilerOptions": {
       "allowJs": true,
       "checkJs": true,
+      "target": "ESNext",
+      "moduleResolution": "Node",
       "alwaysStrict": false,
       "strict": false,
       "types": ["index.d.ts"]
