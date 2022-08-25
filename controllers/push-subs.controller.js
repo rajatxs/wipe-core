@@ -53,7 +53,9 @@ export async function sendPushSubscriptionById(req, res) {
  * @param {import('express').Response} res
  */
 export async function addNewPushSubscription(req, res) {
+   /** @type {PushSubscriptionRecord} */
    const data = req.body;
+   data.tag = req.locals.tag;
 
    try {
       const result = await createPushSubscription(data);

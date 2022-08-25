@@ -1,10 +1,18 @@
+### Returns all push subscriptions
+GET {{BASE_URL}}/push-subs
+X-Tag: {{TAG}}
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns push subscription record
-GET {{BASE_URL}}/push-subs/9
+GET {{BASE_URL}}/push-subs/12
+X-Tag: {{TAG}}
+X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Add push subscription 
 POST {{BASE_URL}}/push-subs
+X-Tag: {{TAG}}
 Content-Type: application/json
+X-Auth-Token: {{AUTH_TOKEN}}
 
 {
    "user_agent": "Mozilla/1.0",
@@ -13,4 +21,6 @@ Content-Type: application/json
 }
 
 ### Delete push subscription
-DELETE {{BASE_URL}}/push-subs/9
+DELETE {{BASE_URL}}/push-subs/12
+X-Tag: {{TAG}}
+X-Auth-Token: {{AUTH_TOKEN}}

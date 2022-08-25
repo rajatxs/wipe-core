@@ -5,11 +5,14 @@
   "scripts": {
     "start": "node scripts/start.js",
     "start:env": "env-cmd node scripts/start.js",
+    "dev:env": "env-cmd nodemon scripts/start.js",
     "test": "mocha services",
     "test:env": "env-cmd mocha services",
     "session:upload": "env-cmd node scripts/session-upload.js",
     "session:restore": "env-cmd node scripts/session-restore.js",
-    "auth:token": "env-cmd node scripts/auth-token.js"
+    "auth:token": "env-cmd node scripts/auth-token.js",
+    "query": "env-cmd node scripts/query.js",
+    "subs:add": "env-cmd node scripts/subs-add.js"
   },
   "author": {
     "name": "Rajat Sharma",
@@ -27,12 +30,14 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "msgpackr": "^1.6.2",
     "mysql": "^2.18.1",
     "qrcode-terminal": "^0.12.0",
     "web-push": "^3.5.0"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.19"
   }
 }

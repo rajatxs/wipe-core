@@ -2,6 +2,7 @@
 ### Generate new auth token
 POST {{BASE_URL}}/auth/token
 Content-Type: application/json
+X-Tag: {{TAG}}
 
 {
    "secret": "TEST"

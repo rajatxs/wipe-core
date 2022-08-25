@@ -1,3 +1,13 @@
+declare interface AppRequestLocals {
+   tag?: string;
+}
+
+declare namespace Express {
+   interface Request {
+      locals: AppRequestLocals
+   }
+}
+
 declare type SubscriptionEvent = 'presence.update';
 
 declare interface Subscription {
@@ -36,3 +46,31 @@ declare interface SessionRecord {
    tag?: string;
    created_at?: Date;
 }
+
+type PresenceNotificationPayload = [
+   /** Payload type */
+   number, 
+
+   /** Subscription alias */
+   string, 
+
+   /** Presence status */
+   boolean, 
+
+   /** Timestamp */
+   number
+];
+
+type ServiceStatusUpdateNotificationPayload = [
+   /** Payload type */
+   number,
+
+   /** Service type */
+   number,
+
+   /** Service status */
+   boolean,
+
+   /** Timestamp */
+   number,
+];

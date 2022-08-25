@@ -60,6 +60,17 @@ export function getPushSubscriptionById(id) {
 }
 
 /**
+ * Returns enabled push subscription payload list
+ * @returns {Promise<object[]>}
+ */
+export async function getPushSubscriptionPayloadList() {
+   const pushsubs = await getEnabledPushSubscriptions();
+   return pushsubs.map(function (subs) {
+      return JSON.parse(String(subs.payload));
+   });
+}
+
+/**
  * Inserts new push subscription record
  * @param {Pick<PushSubscriptionRecord, 'user_agent'|'payload'|'tag'>} data
  */
