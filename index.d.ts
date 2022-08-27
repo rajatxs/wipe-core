@@ -12,10 +12,10 @@ declare type SubscriptionEvent = 'presence.update';
 
 declare interface Subscription {
    id?: number;
-   enabled?: number;
+   enabled?: number | boolean;
    alias?: string;
    event: SubscriptionEvent;
-   notify?: number;
+   notify?: number | boolean;
    phone: string;
    tag?: string;
    created_at?: string;
@@ -23,7 +23,7 @@ declare interface Subscription {
 
 declare interface PresenceHistory {
    id?: number;
-   status: number;
+   status: number | boolean;
    ts?: string;
    lastseen?: number;
    tag?: string;
@@ -32,9 +32,11 @@ declare interface PresenceHistory {
 
 declare interface PushSubscriptionRecord {
    id?: number;
-   enabled?: number;
+   enabled?: number | boolean;
    user_agent?: string;
    payload: string;
+   rejection_count?: number;
+   sha256?: string;
    tag?: string;
    created_at?: string;
 }
