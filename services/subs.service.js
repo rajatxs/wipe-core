@@ -1,4 +1,4 @@
-import { mysql } from '../utils/mysql.js';
+import { executeQuery } from '../utils/mysql.js';
 import { deletePresenceHistoryRecordBySubId } from './presence.service.js';
 
 /**
@@ -7,19 +7,7 @@ import { deletePresenceHistoryRecordBySubId } from './presence.service.js';
  * @returns {Promise<Subscription>}
  */
 export function getSubscriptionById(id) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM subs WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res[0]);
-         }
-      );
-   });
+   return executeQuery('SELECT * FROM subs WHERE id = ? LIMIT 1;', [id], false);
 }
 
 /**
@@ -27,15 +15,7 @@ export function getSubscriptionById(id) {
  * @returns {Promise<Subscription[]>}
  */
 export function getAllSubscriptions() {
-   return new Promise((resolve, reject) => {
-      mysql().query('SELECT * FROM subs ORDER BY id DESC;', [], (err, res) => {
-         if (err) {
-            return reject(err);
-         }
-
-         resolve(res);
-      });
-   });
+   return executeQuery('SELECT * FROM subs ORDER BY id DESC;');
 }
 
 /**
@@ -45,19 +25,10 @@ export function getAllSubscriptions() {
  * @returns {Promise<Subscription[]>}
  */
 export function getSubscriptions(event, limit = 10) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM subs WHERE enabled = 1 && event = ? LIMIT ?;',
-         [event, limit],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery(
+      'SELECT * FROM subs WHERE enabled = 1 && event = ? LIMIT ?;',
+      [event, limit]
+   );
 }
 
 /**
@@ -67,19 +38,10 @@ export function getSubscriptions(event, limit = 10) {
  * @returns {Promise<Subscription[]>}
  */
 export function getSubscriptionByPhone(event, phone) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM subs WHERE enabled = 1 && event = ? && phone = ?;',
-         [event, phone],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery(
+      'SELECT * FROM subs WHERE enabled = 1 && event = ? && phone = ?;',
+      [event, phone]
+   );
 }
 
 /**
@@ -87,19 +49,10 @@ export function getSubscriptionByPhone(event, phone) {
  * @param {Pick<Subscription, 'alias'|'event'|'phone'|'tag'>} data
  */
 export function createSubscription(data) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'INSERT INTO subs(alias, event, phone, tag) VALUES (?, ?, ?, ?);',
-         [data.alias, data.event, data.phone, data.tag],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery(
+      'INSERT INTO subs(alias, event, phone, tag) VALUES (?, ?, ?, ?);',
+      [data.alias, data.event, data.phone, data.tag]
+   );
 }
 
 /**
@@ -108,47 +61,20 @@ export function createSubscription(data) {
  * @param {Partial<Pick<Subscription, 'alias'|'enabled'|'notify'>>} data
  */
 export function updateSubscription(id, data) {
-   return new Promise((resolve, reject) => {
-      delete data['id'];
-      delete data['event'];
-      delete data['phone'];
-      delete data['tag'];
-      delete data['created_at'];
+   delete data['id'];
+   delete data['event'];
+   delete data['phone'];
+   delete data['tag'];
+   delete data['created_at'];
 
-      mysql().query(
-         'UPDATE subs SET ? WHERE id = ? LIMIT 1',
-         [data, id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery('UPDATE subs SET ? WHERE id = ? LIMIT 1', [data, id]);
 }
 
 /**
  * Deletes subscription record by given `id`
  * @param {number} id
  */
-export function deleteSubscription(id) {
-   return new Promise(function (resolve, reject) {
-      deletePresenceHistoryRecordBySubId(id)
-         .then(function () {
-            mysql().query(
-               'DELETE FROM subs WHERE id = ? LIMIT 1;',
-               [id],
-               (err, res) => {
-                  if (err) {
-                     return reject(err);
-                  }
-
-                  resolve(res);
-               }
-            );
-         })
-         .catch(reject);
-   });
+export async function deleteSubscription(id) {
+   await deletePresenceHistoryRecordBySubId(id);
+   return executeQuery('DELETE FROM subs WHERE id = ? LIMIT 1;', [id]);
 }
