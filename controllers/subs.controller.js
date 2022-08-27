@@ -89,6 +89,18 @@ export async function updateSubscriptionById(req, res) {
 
    try {
       const result = await updateSubscription(id, data);
+
+      // resubscribe socket event
+      if (waSocket() && 'enabled' in data && Boolean(data.enabled)) {
+         const subs = await getSubscriptionById(id);
+
+         await registerSocketEventBySubscription(subs);
+         logger.info(
+            'subs:controller',
+            format('resubscribe event=%s id=%d', subs.event, subs.id)
+         );
+      }
+
       send200Response(res, 'Subscription updated', result);
    } catch (error) {
       throw new Error("Couldn't update subscription");
