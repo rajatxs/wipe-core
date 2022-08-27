@@ -1,4 +1,4 @@
-import { mysql } from '../utils/mysql.js';
+import { executeQuery } from '../utils/mysql.js';
 import { generateArchiveSHA256 } from '../utils/session.js';
 import { TAG } from '../config/config.js';
 import { SESSION_ROOT } from '../config/config.js';
@@ -30,7 +30,9 @@ export function uploadSession(tag = TAG) {
 
             // check for duplication
             if (await checkSessionRecordBySHA256(sha256)) {
-               return reject(new Error(`found duplicated entry ...${sha256.slice(-6)}`));
+               return reject(
+                  new Error(`found duplicated entry ...${sha256.slice(-6)}`)
+               );
             }
 
             const result = await insertSessionRecord({
@@ -76,19 +78,10 @@ export function restoreLatestSession() {
  * @param {SessionRecord} data
  */
 export function insertSessionRecord(data) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'INSERT INTO sessions(sha256, archive, tag) VALUES (?, ?, ?);',
-         [data.sha256, data.archive, data.tag],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery(
+      'INSERT INTO sessions(sha256, archive, tag) VALUES (?, ?, ?);',
+      [data.sha256, data.archive, data.tag]
+   );
 }
 
 /**
@@ -97,40 +90,24 @@ export function insertSessionRecord(data) {
  * @returns {Promise<SessionRecord>}
  */
 export function getSessionRecordById(id) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT * FROM sessions WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res[0]);
-         }
-      );
-   });
+   return executeQuery(
+      'SELECT * FROM sessions WHERE id = ? LIMIT 1;',
+      [id],
+      false
+   );
 }
 
 /**
  * Returns session details by given `id`
- * @param {number} id 
+ * @param {number} id
  * @returns {Promise<Omit<SessionRecord, 'archive'>>}
  */
 export function getSessionDetailsById(id) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT id, sha256, tag, created_at FROM sessions WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res[0]);
-         }
-      );
-   });
+   return executeQuery(
+      'SELECT id, sha256, tag, created_at FROM sessions WHERE id = ? LIMIT 1;',
+      [id],
+      false
+   );
 }
 
 /**
@@ -139,19 +116,10 @@ export function getSessionDetailsById(id) {
  * @returns {Promise<SessionRecord[]>}
  */
 export function getAllSessionDetails(limit) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT ?;',
-         [limit],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery(
+      'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT ?;',
+      [limit]
+   );
 }
 
 /**
@@ -159,39 +127,22 @@ export function getAllSessionDetails(limit) {
  * @returns {Promise<Omit<SessionRecord, 'archive'>>}
  */
 export function getLatestSessionDetails() {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT 1;',
-         [],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res[0]);
-         }
-      );
-   });
+   return executeQuery(
+      'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT 1;'
+   );
 }
 
 /**
  * Returns latest archive
  * @returns {Promise<Buffer>}
  */
-export function getLatestArchive() {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT archive FROM sessions ORDER BY id DESC LIMIT 1;',
-         [],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res[0] ? res[0].archive : null);
-         }
-      );
-   });
+export async function getLatestArchive() {
+   const record = await executeQuery(
+      'SELECT archive FROM sessions ORDER BY id DESC LIMIT 1;',
+      [],
+      false
+   );
+   return record.archive || null;
 }
 
 /**
@@ -199,20 +150,12 @@ export function getLatestArchive() {
  * @param {number} id
  * @returns {Promise<boolean>}
  */
-export function checkSessionRecordById(id) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT id FROM sessions WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(Boolean(res.length));
-         }
-      );
-   });
+export async function checkSessionRecordById(id) {
+   const res = await executeQuery(
+      'SELECT id FROM sessions WHERE id = ? LIMIT 1;',
+      [id]
+   );
+   return Boolean(res.length);
 }
 
 /**
@@ -220,20 +163,12 @@ export function checkSessionRecordById(id) {
  * @param {string} sha256
  * @returns {Promise<boolean>}
  */
-export function checkSessionRecordBySHA256(sha256) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'SELECT id FROM sessions WHERE sha256 = ? LIMIT 1;',
-         [sha256],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(Boolean(res.length));
-         }
-      );
-   });
+export async function checkSessionRecordBySHA256(sha256) {
+   const res = await executeQuery(
+      'SELECT id FROM sessions WHERE sha256 = ? LIMIT 1;',
+      [sha256]
+   );
+   return Boolean(res.length);
 }
 
 /**
@@ -242,17 +177,5 @@ export function checkSessionRecordBySHA256(sha256) {
  * @returns {Promise<object>}
  */
 export function deleteSessionById(id) {
-   return new Promise(function (resolve, reject) {
-      mysql().query(
-         'DELETE FROM sessions WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+   return executeQuery('DELETE FROM sessions WHERE id = ? LIMIT 1;', [id]);
 }
