@@ -32,8 +32,8 @@ export function connect() {
    // require ssl options for PlanetScale
    if (NODE_ENV === 'production') {
       config.ssl = {
-         rejectUnauthorized: true
-      }
+         rejectUnauthorized: true,
+      };
    }
 
    connection = MySQL.createConnection(config);
@@ -52,6 +52,28 @@ export function disconnect() {
 
          connection = null;
          resolve();
+      });
+   });
+}
+
+/**
+ * Executes `sql` query with given `values`
+ * @param {string} sql - SQL Query
+ * @param {any} [values] - Query values
+ * @param {boolean} [toArray] - Keep result in array type
+ */
+export function executeQuery(sql, values = [], toArray = true) {
+   return new Promise(function (resolve, reject) {
+      mysql().query(sql, values, function (err, result) {
+         if (err) {
+            return reject(err);
+         }
+
+         if (Array.isArray(result) && !toArray) {
+            resolve(result[0]);
+         } else {
+            resolve(result);
+         }
       });
    });
 }
