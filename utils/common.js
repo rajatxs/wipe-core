@@ -11,6 +11,24 @@ export function SHA256(data) {
 }
 
 /**
+ * Returns SHA256 hash of given `payload`
+ * @param {object|string} payload 
+ * @returns {string}
+ */
+export function generatePushPayloadSHA256(payload) {
+   /** @type {string} */
+   let raw;
+
+   if (typeof payload === 'object') {
+      raw = JSON.stringify(payload);
+   } else {
+      raw = payload;
+   }
+
+   return SHA256(Buffer.from(raw)).toString('hex');
+}
+
+/**
  * Returns system tag for identification
  * @returns {string}
  */
