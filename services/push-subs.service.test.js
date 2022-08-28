@@ -6,11 +6,15 @@ import {
    updatePushSubscription,
    deletePushSubscription,
 } from './push-subs.service.js';
+import { generatePushPayloadSHA256 } from '../utils/common.js';
 
-var pushSubId = 1,
-   payload = '{}';
+/** @type {number} */
+var pushSubId;
+
 const tag = 'TEST',
-   user_agent = 'Mozilla/5.0';
+   payload = '{}',
+   user_agent = 'Mozilla/5.0',
+   sha256 = generatePushPayloadSHA256(payload);
 
 describe('Push subscription service', function () {
    this.afterAll(function (done) {
@@ -34,25 +38,31 @@ describe('Push subscription service', function () {
 
       assert.ok(record, 'push subscription not found');
       assert.equal(record.id, pushSubId, 'incorrect pushSubId');
-      assert.equal(record.enabled, 1, 'need to enable by default');
+      assert.equal(record.enabled, 1, 'should be enabled by default');
       assert.equal(record.user_agent, user_agent, 'incorrect user_agent');
-      assert.equal(record.payload, payload, 'incorrect payloat');
+      assert.equal(record.rejection_count, 0, 'rejection count should be zero');
+      assert.equal(record.payload, payload, 'incorrect payload');
+      assert.equal(record.sha256, sha256, 'incorrect sha256');
       assert.equal(record.tag, tag, 'incorrect tag');
       assert.ok(record.created_at, 'invalid created_at');
    });
 
    it('should update push subscription record', async function () {
-      payload = '{ "foo": 1 }';
       const res = await updatePushSubscription(pushSubId, {
          enabled: 0,
-         payload,
       });
       assert.equal(res.affectedRows, 1, 'more rows are affected');
 
       const record = await getPushSubscriptionById(pushSubId);
       assert.equal(record.id, pushSubId, 'pushSubId has been changed');
       assert.equal(record.enabled, 0, 'incorrect enabled value');
-      assert.equal(record.payload, payload, 'incorrect payload');
+      assert.equal(record.payload, payload, 'payload has been changed');
+      assert.equal(record.sha256, sha256, 'sha256 has been changed');
+      assert.equal(
+         record.rejection_count,
+         0,
+         'rejection count has been changed'
+      );
       assert.equal(
          record.user_agent,
          user_agent,
