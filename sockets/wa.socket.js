@@ -4,11 +4,13 @@ import makeWASocket, {
    useMultiFileAuthState,
 } from '@adiwajshing/baileys';
 import { SESSION_ROOT } from '../config/config.js';
+import { MsgPayloadTypes } from '../config/msg.js';
 import {
    registerPresenceUpdateEvent,
    dispatchPresenceUpdateEvent,
    resetPresenceUpdateCounts,
 } from '../services/observer.service.js';
+import { sendServiceStatusUpdateNotification } from '../services/push.service.js';
 import logger from '../utils/logger.js';
 
 /** @type {import('@adiwajshing/baileys').MessageRetryMap} */
@@ -45,11 +47,20 @@ export async function openWASocket() {
             ) {
                openWASocket();
             } else {
+               sendServiceStatusUpdateNotification(
+                  MsgPayloadTypes.SOCKET_STATUS_UPDATE,
+                  false
+               );
                logger.warn('wa:socket', 'connection closed');
             }
          }
 
          if (connection === 'open') {
+            sendServiceStatusUpdateNotification(
+               MsgPayloadTypes.SOCKET_STATUS_UPDATE,
+               true
+            );
+
             try {
                await registerPresenceUpdateEvent();
             } catch (error) {

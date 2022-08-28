@@ -1,7 +1,5 @@
 import { send200Response } from '../utils/http.js';
 import { waSocket, openWASocket, closeWASocket } from '../sockets/wa.socket.js';
-import { sendServiceStatusUpdateNotification } from '../services/push.service.js';
-import { MsgPayloadTypes } from '../config/msg.js';
 
 /**
  * Sends WA Socket status
@@ -26,10 +24,6 @@ export async function requestToReopenWASocket(req, res) {
    try {
       if (!waSocket()) {
          await openWASocket();
-         sendServiceStatusUpdateNotification(
-            MsgPayloadTypes.SOCKET_STATUS_UPDATE,
-            true
-         );
       }
       send200Response(res, 'Socket opened');
    } catch (error) {
@@ -45,10 +39,6 @@ export async function requestToReopenWASocket(req, res) {
 export function requestToCloseWASocket(req, res) {
    try {
       closeWASocket();
-      sendServiceStatusUpdateNotification(
-         MsgPayloadTypes.SOCKET_STATUS_UPDATE,
-         false
-      );
       send200Response(res, 'Socket closed');
    } catch (error) {
       throw new Error("Couldn't close socket connection");
