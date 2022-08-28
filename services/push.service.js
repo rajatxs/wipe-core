@@ -24,7 +24,8 @@ export async function sendPushNotification(pushsubs, payload) {
    /** @type {object} */
    let subs;
 
-   if (typeof pushsubs.payload !== 'object') {
+   if (typeof pushsubs.payload !== 'string') {
+      await deletePushSubscription(pushsubs.id);
       throw new Error('found invalid payload');
    }
 
