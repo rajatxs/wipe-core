@@ -35,8 +35,26 @@ export function startHttpServer() {
 
       // Handle 500
       app.use(function (error, req, res, next) {
-         logger.error('http:error', error.message, error);
-         send500Response(res, error.message || 'Something went wrong');
+         /** @type {string} */
+         let errorMsg;
+
+         /** @type {Error} */
+         let errorCtx;
+
+         if (Array.isArray(error)) {
+            [errorMsg, errorCtx] = error;
+         } else {
+            if (error instanceof Error) {
+               errorMsg = error.message;
+               errorCtx = error;
+            } else {
+               errorMsg = error;
+               errorCtx = new Error(error);
+            }
+         }
+
+         logger.error('http:error', errorCtx);
+         send500Response(res, errorMsg);
       });
 
       server = app.listen(PORT);
