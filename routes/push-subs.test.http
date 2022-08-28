@@ -4,7 +4,12 @@ X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
 ### Returns push subscription record
-GET {{BASE_URL}}/push-subs/12
+GET {{BASE_URL}}/push-subs/5
+X-Tag: {{TAG}}
+X-Auth-Token: {{AUTH_TOKEN}}
+
+### Checks whether push subs exists or not
+GET {{BASE_URL}}/push-subs/check/44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
 X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
 
@@ -21,6 +26,6 @@ X-Auth-Token: {{AUTH_TOKEN}}
 }
 
 ### Delete push subscription
-DELETE {{BASE_URL}}/push-subs/12
+DELETE {{BASE_URL}}/push-subs/43
 X-Tag: {{TAG}}
 X-Auth-Token: {{AUTH_TOKEN}}
