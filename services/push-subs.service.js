@@ -66,7 +66,7 @@ export async function checkPushSubscriptionBySha256(sha256) {
  */
 export function increaseRejectionCount(id) {
    return executeQuery(
-      'UPDATE push_subs SET reject_count = reject_count + 1 WHERE id = ? LIMIT 1;',
+      'UPDATE push_subs SET rejection_count = rejection_count + 1 WHERE id = ? LIMIT 1;',
       [id]
    );
 }
@@ -77,7 +77,7 @@ export function increaseRejectionCount(id) {
  */
 export function decreaseRejectionCount(id) {
    return executeQuery(
-      'UPDATE push_subs SET reject_count = reject_count - 1 WHERE id = ? LIMIT 1;',
+      'UPDATE push_subs SET rejection_count = rejection_count - 1 WHERE id = ? LIMIT 1;',
       [id]
    );
 }
