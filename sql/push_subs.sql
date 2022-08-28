@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS `push_subs` (
    enabled BOOLEAN DEFAULT 1,
    user_agent TEXT,
    payload JSON NOT NULL,
+   rejection_count TINYINT DEFAULT 0,
+   sha256 VARCHAR(64) UNIQUE NOT NULL,
    tag VARCHAR(8),
    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
