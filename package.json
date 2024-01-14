@@ -1,6 +1,6 @@
 {
-  "name": "wipe-core",
-  "version": "1.0.0",
+  "name": "@rxpm/wipe-core",
+  "version": "2.0.0",
   "main": "scripts/start.js",
   "scripts": {
     "start": "node scripts/start.js",
@@ -16,12 +16,25 @@
   },
   "author": {
     "name": "Rajat Sharma",
-    "email": "rxx175@gmail.com",
+    "email": "rajatxt@proton.me",
     "url": "https://github.com/rajatxs"
   },
   "type": "module",
   "types": "index.d.ts",
-  "license": "MIT",
+  "license": "ISC",
+  "keywords": [
+    "wipe",
+    "whatsapp",
+    "wipe-server",
+    "wipe-core"
+  ],
+  "repository": "https://github.com/rajatxs/wipe-core.git",
+  "readme": "https://github.com/rajatxs/wipe-core#readme",
+  "bugs": {
+    "email": "rajatxt@proton.me",
+    "url": "https://github.com/rajatxs/wipe-core/issues"
+  },
+  "markdown": "github",
   "dependencies": {
     "@rxpm/logger": "^1.0.0",
     "@whiskeysockets/baileys": "^6.5.0",
