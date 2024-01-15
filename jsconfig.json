@@ -6,6 +6,6 @@
       "moduleResolution": "Node",
       "alwaysStrict": false,
       "strict": false,
-      "types": ["index.d.ts"]
+      "types": ["./index.d.ts"]
    }
 }
