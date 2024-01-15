@@ -1,0 +1,10 @@
+node_modules/
+temp/
+certs/
+.vscode/
+.session/
+.wipe
+
+fly.toml
+.env 
+*.log

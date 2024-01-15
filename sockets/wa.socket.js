@@ -2,7 +2,7 @@ import makeWASocket, {
    DisconnectReason,
    fetchLatestBaileysVersion,
    useMultiFileAuthState,
-} from '@adiwajshing/baileys';
+} from '@whiskeysockets/baileys';
 import { SESSION_ROOT } from '../config/config.js';
 import {
    registerPresenceUpdateEvent,
@@ -11,7 +11,7 @@ import {
 } from '../services/observer.service.js';
 import logger from '../utils/logger.js';
 
-/** @type {import('@adiwajshing/baileys').MessageRetryMap} */
+/** @type {any} */
 const msgRetryCounterMap = {};
 var _waSocket;
 

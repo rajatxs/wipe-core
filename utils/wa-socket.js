@@ -1,5 +1,5 @@
 import { waSocket } from '../sockets/wa.socket.js';
-import { jidEncode } from '@adiwajshing/baileys/lib/WABinary/jid-utils.js';
+import { jidEncode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 
 /**
  * Registers new subscription of given `subs` based on `event`

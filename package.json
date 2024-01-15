@@ -1,6 +1,6 @@
 {
-  "name": "wipe-core",
-  "version": "1.0.0",
+  "name": "@rxpm/wipe-core",
+  "version": "2.0.0",
   "main": "scripts/start.js",
   "scripts": {
     "start": "node scripts/start.js",
@@ -16,16 +16,28 @@
   },
   "author": {
     "name": "Rajat Sharma",
-    "email": "rxx175@gmail.com",
+    "email": "rajatxt@proton.me",
     "url": "https://github.com/rajatxs"
   },
   "type": "module",
   "types": "index.d.ts",
-  "license": "MIT",
+  "license": "ISC",
+  "keywords": [
+    "wipe",
+    "whatsapp",
+    "wipe-server",
+    "wipe-core"
+  ],
+  "repository": "https://github.com/rajatxs/wipe-core.git",
+  "readme": "https://github.com/rajatxs/wipe-core#readme",
+  "bugs": {
+    "email": "rajatxt@proton.me",
+    "url": "https://github.com/rajatxs/wipe-core/issues"
+  },
+  "markdown": "github",
   "dependencies": {
-    "@adiwajshing/baileys": "^4.3.0",
-    "@adiwajshing/keyed-db": "^0.2.4",
     "@rxpm/logger": "^1.0.0",
+    "@whiskeysockets/baileys": "^6.5.0",
     "adm-zip": "^0.5.9",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -36,8 +48,9 @@
     "web-push": "^3.5.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.0",
     "env-cmd": "^10.1.0",
     "mocha": "^10.0.0",
-    "nodemon": "^2.0.19"
+    "nodemon": "^3.0.2"
   }
 }
