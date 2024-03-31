@@ -1,4 +1,4 @@
-import { mysql } from '../utils/mysql.js';
+import { getRow, getRows, insertRow, deleteRow } from '../utils/sqlite.js';
 
 /**
  * Returns all push subscription records
@@ -6,18 +6,7 @@ import { mysql } from '../utils/mysql.js';
  * @returns {Promise<PushSubscriptionRecord[]>}
  */
 export function getAllPushSubscriptions(limit) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM push_subs ORDER BY id DESC LIMIT ?;',
-         [limit],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-            resolve(res);
-         }
-      );
-   });
+    return getRows('SELECT * FROM push_subs ORDER BY id DESC LIMIT ?;', [limit]);
 }
 
 /**
@@ -25,18 +14,7 @@ export function getAllPushSubscriptions(limit) {
  * @returns {Promise<PushSubscriptionRecord[]>}
  */
 export function getEnabledPushSubscriptions() {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM push_subs WHERE enabled = 1 ORDER BY id DESC;',
-         [],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-            resolve(res);
-         }
-      );
-   });
+    return getRows('SELECT * FROM push_subs WHERE enabled = 1 ORDER BY id DESC;');
 }
 
 /**
@@ -45,18 +23,7 @@ export function getEnabledPushSubscriptions() {
  * @returns {Promise<PushSubscriptionRecord>}
  */
 export function getPushSubscriptionById(id) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM push_subs WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-            resolve(res[0]);
-         }
-      );
-   });
+    return getRow('SELECT * FROM push_subs WHERE id = ? LIMIT 1;', [id]);
 }
 
 /**
@@ -64,73 +31,29 @@ export function getPushSubscriptionById(id) {
  * @returns {Promise<object[]>}
  */
 export async function getPushSubscriptionPayloadList() {
-   const pushsubs = await getEnabledPushSubscriptions();
-   return pushsubs.map(function (subs) {
-      return JSON.parse(String(subs.payload));
-   });
+    const pushsubs = await getEnabledPushSubscriptions();
+    return pushsubs.map(function (subs) {
+        return JSON.parse(String(subs.payload));
+    });
 }
 
 /**
  * Inserts new push subscription record
  * @param {Pick<PushSubscriptionRecord, 'user_agent'|'payload'|'tag'>} data
+ * @returns {Promise<number>}
  */
 export function createPushSubscription(data) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'INSERT INTO push_subs (user_agent, payload, tag) VALUES (?, ?, ?);',
-         [data.user_agent, data.payload, data.tag],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-            resolve(res);
-         }
-      );
-   });
-}
-
-/**
- * Updates push subscription record by given `id`
- * @param {number} id
- * @param {Partial<Pick<PushSubscriptionRecord, 'enabled'|'payload'>>} data
- */
-export function updatePushSubscription(id, data) {
-   return new Promise((resolve, reject) => {
-      delete data['id'];
-      delete data['user_agent'];
-      delete data['tag'];
-      delete data['created_at'];
-
-      mysql().query(
-         'UPDATE push_subs SET ? WHERE id = ? LIMIT 1',
-         [data, id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+    return insertRow(
+        'INSERT INTO push_subs (user_agent, payload, tag) VALUES (?, ?, ?);',
+        [data.user_agent, data.payload, data.tag]
+    );
 }
 
 /**
  * Deletes push subscription record by given `id`
  * @param {number} id
+ * @returns {Promise<number>}
  */
 export function deletePushSubscription(id) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'DELETE FROM push_subs WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+    return deleteRow('DELETE FROM push_subs WHERE id = ?;', [id]);
 }
