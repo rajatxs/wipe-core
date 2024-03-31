@@ -1,7 +1,9 @@
+import debug from 'debug';
 import {
    send200Response,
    send400Response,
    send404Response,
+   send500Response,
 } from '../utils/http.js';
 import {
    getPresenceHistoryBySubId,
@@ -27,7 +29,8 @@ export async function sendPresenceHistoryRecordsById(req, res) {
          send404Response(res, 'Record not found');
       }
    } catch (error) {
-      throw new Error("Couldn't get presence history record");
+      debug('wipe:controller:presence:error')(error);
+      send500Response(res, "Couldn't get presence history record");
    }
 }
 
@@ -48,7 +51,8 @@ export async function sendPresenceHistoryRecordsBySubId(req, res) {
       const records = await getPresenceHistoryBySubId(subId, limit);
       send200Response(res, 'Presence history', records);
    } catch (error) {
-      throw new Error("Couldn't get presence history");
+      debug('wipe:controller:presence:error')(error);
+      send500Response(res, "Couldn't get presence history");
    }
 }
 
@@ -64,7 +68,8 @@ export async function deleteSinglePresenceHistoryRecordById(req, res) {
       const result = await deletePresenceHistoryRecordById(id);
       send200Response(res, 'Record deleted', result);
    } catch (error) {
-      throw new Error("Couldn't delete record");
+      debug('wipe:controller:presence:error')(error);
+      send500Response(res, "Couldn't delete record");
    }
 }
 
@@ -84,6 +89,7 @@ export async function deleteAllPresenceHistoryRecordBySubId(req, res) {
       const result = await deletePresenceHistoryRecordBySubId(subId);
       send200Response(res, 'Records deleted', result);
    } catch (error) {
-      throw new Error("Couldn't delete presence history records");
+      debug('wipe:controller:presence:error')(error);
+      send500Response(res, "Couldn't delete presence history records");
    }
 }
