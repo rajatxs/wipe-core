@@ -96,7 +96,7 @@ export function updateRow(query, params = []) {
 }
 
 /**
- * Delete single row from database collection
+ * Delete single or multiple rows from database collection
  * @param {string} query
  * @param {any[]} params
  * @returns {Promise<number>}

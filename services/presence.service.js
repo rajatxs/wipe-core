@@ -1,24 +1,12 @@
-import { mysql } from '../utils/mysql.js';
+import { getRow, getRows, insertRow, deleteRow } from '../utils/sqlite.js';
 
 /**
  * Returns presence history record by given `id`
- * @param {number} id 
+ * @param {number} id
  * @returns {Promise<PresenceHistory>}
  */
 export function getPresenceHistoryById(id) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM pres_hist WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res[0]);
-         }
-      );
-   });
+    return getRow('SELECT * FROM pres_hist WHERE id = ? LIMIT 1;', [id]);
 }
 
 /**
@@ -28,77 +16,38 @@ export function getPresenceHistoryById(id) {
  * @returns {Promise<PresenceHistory[]>}
  */
 export function getPresenceHistoryBySubId(subId, limit) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'SELECT * FROM pres_hist WHERE sub_id = ? ORDER BY id DESC LIMIT ?;',
-         [subId, limit],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+    return getRows('SELECT * FROM pres_hist WHERE sub_id = ? ORDER BY id DESC LIMIT ?;', [
+        subId,
+        limit,
+    ]);
 }
 
 /**
  * Inserts presence history record
  * @param {Pick<PresenceHistory, 'status'|'lastseen'|'sub_id'|'tag'>} data
+ * @returns {Promise<number>}
  */
 export function insertPresenceHistoryRecord(data) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'INSERT INTO pres_hist(status, lastseen, sub_id, tag) VALUES (?, ?, ?, ?);',
-         [data.status, data.lastseen, data.sub_id, data.tag],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+    return insertRow(
+        'INSERT INTO pres_hist(status, lastseen, sub_id, tag) VALUES (?, ?, ?, ?);',
+        [data.status, data.lastseen, data.sub_id, data.tag]
+    );
 }
 
 /**
- * Deletes presence history record by given `id`
- * @param {number} id 
+ * Deletes single presence history record by given `id`
+ * @param {number} id
+ * @returns {Promise<number>}
  */
 export function deletePresenceHistoryRecordById(id) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'DELETE FROM pres_hist WHERE id = ? LIMIT 1;',
-         [id],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+    return deleteRow('DELETE FROM pres_hist WHERE id = ?;', [id]);
 }
 
 /**
  * Deletes all presence history records by given `subId`
- * @param {number} subId 
+ * @param {number} subId
+ * @returns {Promise<number>}
  */
 export function deletePresenceHistoryRecordBySubId(subId) {
-   return new Promise((resolve, reject) => {
-      mysql().query(
-         'DELETE FROM pres_hist WHERE sub_id = ?;',
-         [subId],
-         (err, res) => {
-            if (err) {
-               return reject(err);
-            }
-
-            resolve(res);
-         }
-      );
-   });
+    return deleteRow('DELETE FROM pres_hist WHERE sub_id = ?;', [subId]);
 }
