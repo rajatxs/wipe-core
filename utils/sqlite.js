@@ -49,11 +49,19 @@ export function insertRow(query, params = []) {
     return new Promise(function (resolve, reject) {
         const stmt = instance.prepare(query);
 
-        stmt.run(params, function (error) {
-            if (error) {
-                reject(error);
+        stmt.run(params, function (error1) {
+            if (error1) {
+                reject(error1);
             } else {
-                resolve(this.lastID);
+                const id = this.lastID;
+
+                stmt.finalize(function(error2) {
+                    if (error2) {
+                        reject(error2);
+                    } else {
+                        resolve(id);
+                    }
+                })
             }
         });
     });
@@ -69,11 +77,19 @@ export function updateRow(query, params = []) {
     return new Promise(function (resolve, reject) {
         const stmt = instance.prepare(query);
 
-        stmt.run(params, function (error) {
-            if (error) {
-                reject(error);
+        stmt.run(params, function (error1) {
+            if (error1) {
+                reject(error1);
             } else {
-                resolve(this.changes);
+                const changes = this.changes;
+
+                stmt.finalize(function(error2) {
+                    if (error2) {
+                        reject(error2);
+                    } else {
+                        resolve(changes);
+                    }
+                })
             }
         });
     });
@@ -89,11 +105,19 @@ export function deleteRow(query, params = []) {
     return new Promise(function (resolve, reject) {
         const stmt = instance.prepare(query);
 
-        stmt.run(params, function (error) {
-            if (error) {
-                reject(error);
+        stmt.run(params, function (error1) {
+            if (error1) {
+                reject(error1);
             } else {
-                resolve(this.changes);
+                const changes = this.changes;
+
+                stmt.finalize(function(error2) {
+                    if (error2) {
+                        reject(error2);
+                    } else {
+                        resolve(changes);
+                    }
+                })
             }
         });
     });
@@ -178,13 +202,12 @@ async function prescript() {
     for (let queryName in queries) {
         const query = queries[queryName];
 
-        instance.run(query, function (error) {
-            if (error) {
-                debug('wipe:sqlite:error')('failed to execute query %s', queryName);
-            } else {
-                debug('wipe:sqlite')('preset query executed %s', queryName);
-            }
-        });
+        try {
+            await runStatement(query);
+            debug('wipe:sqlite')('preset query executed %s', queryName);
+        } catch (error) {
+            debug('wipe:sqlite:error')('failed to execute query %s', queryName);
+        }
     }
 }
 
