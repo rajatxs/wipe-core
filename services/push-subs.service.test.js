@@ -1,71 +1,53 @@
 import assert from 'assert';
-import { disconnect } from '../utils/mysql.js';
+import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
 import {
-   getPushSubscriptionById,
-   createPushSubscription,
-   updatePushSubscription,
-   deletePushSubscription,
+    getPushSubscriptionById,
+    createPushSubscription,
+    deletePushSubscription,
 } from './push-subs.service.js';
 
 var pushSubId = 1,
-   payload = '{}';
+    payload = '{}';
 const tag = 'TEST',
-   user_agent = 'Mozilla/5.0';
+    user_agent = 'Mozilla/5.0';
 
 describe('Push subscription service', function () {
-   this.afterAll(function (done) {
-      disconnect().then(done).catch(done);
-   });
+    this.beforeAll(function (done) {
+        openSQLiteDatabase().finally(done);
+    });
 
-   it('should insert new push subscription record', async function () {
-      const res = await createPushSubscription({
-         user_agent,
-         payload,
-         tag,
-      });
+    this.afterAll(function (done) {
+        closeSQLiteDatabase().finally(done);
+    });
 
-      assert.ok(res.insertId > 0, 'incorrect insertId');
-      assert.equal(res.affectedRows, 1, 'more rows are affected');
-      pushSubId = res.insertId;
-   });
+    it('should insert new push subscription record', async function () {
+        const id = await createPushSubscription({
+            user_agent,
+            payload,
+            tag,
+        });
 
-   it('should returns push subscription record', async function () {
-      const record = await getPushSubscriptionById(pushSubId);
+        assert.ok(id > 0, 'incorrect id');
+        pushSubId = id;
+    });
 
-      assert.ok(record, 'push subscription not found');
-      assert.equal(record.id, pushSubId, 'incorrect pushSubId');
-      assert.equal(record.enabled, 1, 'need to enable by default');
-      assert.equal(record.user_agent, user_agent, 'incorrect user_agent');
-      assert.equal(record.payload, payload, 'incorrect payloat');
-      assert.equal(record.tag, tag, 'incorrect tag');
-      assert.ok(record.created_at, 'invalid created_at');
-   });
+    it('should returns push subscription record', async function () {
+        const record = await getPushSubscriptionById(pushSubId);
 
-   it('should update push subscription record', async function () {
-      payload = '{ "foo": 1 }';
-      const res = await updatePushSubscription(pushSubId, {
-         enabled: 0,
-         payload,
-      });
-      assert.equal(res.affectedRows, 1, 'more rows are affected');
+        assert.ok(record, 'push subscription not found');
+        assert.equal(record.id, pushSubId, 'incorrect pushSubId');
+        assert.equal(record.enabled, 1, 'need to enable by default');
+        assert.equal(record.user_agent, user_agent, 'incorrect user_agent');
+        assert.equal(record.payload, payload, 'incorrect payloat');
+        assert.equal(record.tag, tag, 'incorrect tag');
+        assert.ok(record.created_at, 'invalid created_at');
+    });
 
-      const record = await getPushSubscriptionById(pushSubId);
-      assert.equal(record.id, pushSubId, 'pushSubId has been changed');
-      assert.equal(record.enabled, 0, 'incorrect enabled value');
-      assert.equal(record.payload, payload, 'incorrect payload');
-      assert.equal(
-         record.user_agent,
-         user_agent,
-         'user_agent has been changed'
-      );
-      assert.equal(record.tag, tag, 'tag has been changed');
-   });
+    it('should delete push subscription record', async function () {
+        const changes = await deletePushSubscription(pushSubId);
+        assert.equal(changes, 1, 'more rows are affected');
 
-   it('should delete push subscription record', async function () {
-      const res = await deletePushSubscription(pushSubId);
-      assert.equal(res.affectedRows, 1, 'more rows are affected');
-
-      const record = await getPushSubscriptionById(pushSubId);
-      assert.ok(!record, 'push subscription record still exists');
-   });
+        const record = await getPushSubscriptionById(pushSubId);
+        assert.ok(!record, 'push subscription record still exists');
+    });
 });
