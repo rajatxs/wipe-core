@@ -2,6 +2,14 @@ All notable changes to this project will be documented in this file.
 
 ## v3.0.0
 
+### Added
+
+- Store APIs
+
+### Changed
+
+- Uses SQLite 3
+
 ### Dependency changes
 
 - Added `sqlite3 5.1.7` package
@@ -14,3 +22,13 @@ All notable changes to this project will be documented in this file.
 - Removed `@rxpm/logger 1.0.0` package
 - Removed `mysql 2.18.1` package
 - Upgraded `@whiskeysockets/baileys 6.5.0` package to version "6.6.0"
+
+### Deprecated
+
+- Deprecated MySQL in favor of SQLite
+
+### Removed
+
+- Logger utility
+- MySQL utility
+- SQL scripts
