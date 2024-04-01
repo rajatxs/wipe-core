@@ -1,30 +1,40 @@
 # Wipe Core
-Wipe allows you to track user's presence on WhatsApp.
+
+Wipe enables you to monitor users presence on WhatsApp.
 
 ## Requirements
-You need to install few softwares including:
+
+To utilize Wipe, ensure the following software applications are installed:
+
 - [Node 12](https://nodejs.org)
 
 ## Install
-You need to clone this repository and navigate into that directory
-```sh
+
+Clone this repository and navigate to the corresponding directory:
+
+```shell
 git clone https://github.com/rajatxs/wipe-core.git wipe
 ```
-```sh
+
+```shell
 cd wipe
 ```
 
-then install required dependencies using your favourite package manager
-```sh
+Then, install the required dependencies using your preferred package manager:
+
+```shell
 npm install
 ```
+
 or
-```sh
+
+```shell
 yarn install
 ```
 
-add **.env** file with following variables
-```markdown
+Additionally, create a `.env` file with the following variables:
+
+```shell
 # nodejs environment either "production" or "development"
 NODE_ENV = "development"
 
@@ -41,52 +51,39 @@ WIPE_VAPID_PRIVATE = "<your private VAPID key>"
 ```
 
 #### Pro Tip:
-You can generate VAPID keys using
-```sh
+
+You can generate VAPID keys using:
+
+```shell
 npx web-push generate-vapid-keys
 ```
 
-finally you need to run SQL queries to setup tables in the database
-> You can run those queries manually or using built in command
-
-```sh
-npm run query subs pres_hist push_subs sessions
-```
-or 
-```sh
-yarn query subs pres_hist push_subs sessions
-```
-
-add one subscription into database using
-```sh
-npm run subs:add <user name> <your target phone>
-```
-or
-```sh
-yarn subs:add <user name> <your target phone>
-```
-
 ## Usage
-Once you complete the setup you can run the following command to start HTTP and WA Socket service
 
-If you did setup the environment globally then you can run 
-```sh
+Once the setup is completed, you can initiate the HTTP and WhatsApp Socket service using the following command:
+
+If you have configured the environment globally, you can execute:
+
+```shell
 npm start
 ```
 or
-```sh
+```shell
 yarn start
 ```
 
-otherwise you can load .env file using 
-```sh
+Alternatively, you can load the `.env` file using:
+
+```shell
 npm run start:env
 ```
+
 or
-```sh
+
+```shell
 yarn start:env
 ```
 
-> For the first time, you need to connect your WhatsApp by scanning a QR code from the terminal
+> For the initial setup, you need to connect your WhatsApp by scanning a QR code from the terminal.
 
-If it will successfully be connected, the service will start tracking your target number and write history records in the database
+After completing the setup process, the service will begin listening for the events to which you have subscribed.
