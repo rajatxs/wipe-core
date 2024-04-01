@@ -1,6 +1,6 @@
 {
   "name": "@rxpm/wipe-core",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "scripts/start.js",
   "scripts": {
     "start": "node scripts/start.js",
@@ -10,9 +10,7 @@
     "test:env": "env-cmd mocha services",
     "session:upload": "env-cmd node scripts/session-upload.js",
     "session:restore": "env-cmd node scripts/session-restore.js",
-    "auth:token": "env-cmd node scripts/auth-token.js",
-    "query": "env-cmd node scripts/query.js",
-    "subs:add": "env-cmd node scripts/subs-add.js"
+    "auth:token": "env-cmd node scripts/auth-token.js"
   },
   "author": {
     "name": "Rajat Sharma",
@@ -22,6 +20,7 @@
   "type": "module",
   "types": "index.d.ts",
   "license": "ISC",
+  "preferGlobal": false,
   "keywords": [
     "wipe",
     "whatsapp",
