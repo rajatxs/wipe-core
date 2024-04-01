@@ -42,7 +42,6 @@
     "debug": "^4.3.4",
     "express": "^4.19.2",
     "msgpackr": "^1.6.2",
-    "mysql": "^2.18.1",
     "qrcode-terminal": "^0.12.0",
     "sqlite3": "^5.1.7",
     "web-push": "^3.5.0"

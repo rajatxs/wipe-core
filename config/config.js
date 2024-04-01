@@ -16,13 +16,6 @@ export const SESSION_ROOT = path.join(STORE_ROOT, 'session_v3');
 // SQLite config
 export const SQLITE_DB_FILE = path.join(STORE_ROOT, 'store_v3.db');
 
-// MySQL config
-export const MYSQL_HOST = process.env.WIPE_MYSQL_HOST;
-export const MYSQL_PSWD = process.env.WIPE_MYSQL_PSWD;
-export const MYSQL_PORT = Number(process.env.WIPE_MYSQL_PORT);
-export const MYSQL_USER = process.env.WIPE_MYSQL_USER;
-export const MYSQL_DB = process.env.WIPE_MYSQL_DB;
-
 // VAPID keys
 export const VAPID_PUBLIC = process.env.WIPE_VAPID_PUBLIC;
 export const VAPID_PRIVATE = process.env.WIPE_VAPID_PRIVATE;

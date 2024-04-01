@@ -4,7 +4,6 @@ Wipe allows you to track user's presence on WhatsApp.
 ## Requirements
 You need to install few softwares including:
 - [Node 12](https://nodejs.org)
-- [MySQL 8](https://www.mysql.com)
 
 ## Install
 You need to clone this repository and navigate into that directory
@@ -34,13 +33,6 @@ PORT = "5050"
 
 # use any secret to authenticate incoming API request
 WIPE_AUTH_SECRET = "<your auth secret>"
-
-# database configuration
-WIPE_MYSQL_HOST = "<MySQL host>"
-WIPE_MYSQL_PSWD = "<MySQL password>"
-WIPE_MYSQL_PORT = "<MySQL port>"
-WIPE_MYSQL_USER = "<MySQL user>"
-WIPE_MYSQL_DB = "<MySQL database>"
 
 # webpush subject either any URL or mailto:<your email>
 WIPE_WEBPUSH_SUBJECT = "<your webpush subject>"
