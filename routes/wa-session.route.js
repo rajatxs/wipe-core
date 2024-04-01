@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
    sendAllSessionDetails,
+   sendLatestSessionDetails,
    sendSessionDetailsByGivenId,
    requestToUploadSession,
    requestToRestoreSession,
@@ -10,6 +11,7 @@ import {
 const router = Router();
 
 router.get('/', sendAllSessionDetails);
+router.get('/latest', sendLatestSessionDetails);
 router.get('/:id', sendSessionDetailsByGivenId);
 router.put('/upload', requestToUploadSession);
 router.put('/restore', requestToRestoreSession);
