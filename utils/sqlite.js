@@ -254,9 +254,8 @@ export function closeSQLiteDatabase() {
             return resolve();
         }
 
-        instance.close(function (error) {
+        instance.close(/** @param {any} error */ function (error) {
             if (error) {
-                console.log('err code', error.stack);
                 debug('wipe:sqlite:error')(error.message);
                 reject(error);
             } else {

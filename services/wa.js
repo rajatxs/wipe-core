@@ -1,3 +1,4 @@
+import debug from 'debug';
 import makeWASocket, {
    DisconnectReason,
    fetchLatestBaileysVersion,
@@ -9,7 +10,6 @@ import {
    dispatchPresenceUpdateEvent,
    resetPresenceUpdateCounts,
 } from './observer.js';
-import logger from '../utils/logger.js';
 
 /** @type {any} */
 const msgRetryCounterMap = {};
@@ -45,7 +45,7 @@ export async function openWASocket() {
             ) {
                openWASocket();
             } else {
-               logger.warn('wa:socket', 'connection closed');
+               debug('wipe:wa')('connection closed');
             }
          }
 
@@ -53,7 +53,7 @@ export async function openWASocket() {
             try {
                await registerPresenceUpdateEvent();
             } catch (error) {
-               logger.error("wa:socket", "couldn't subscribe socket events", error);
+               debug('wipe:wa:error')("couldn't subscribe socket events error=%s", error.message);
             }
          }
       }
