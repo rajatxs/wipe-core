@@ -35,7 +35,6 @@
   },
   "markdown": "github",
   "dependencies": {
-    "@rxpm/logger": "^1.0.0",
     "@whiskeysockets/baileys": "^6.5.0",
     "adm-zip": "^0.5.12",
     "bcryptjs": "^2.4.3",

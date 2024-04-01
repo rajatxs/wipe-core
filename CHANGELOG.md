@@ -11,3 +11,4 @@ All notable changes to this project will be documented in this file.
 - Upgraded `express 4.18.1` package to version "4.19.2"
 - Upgraded `mocha 10.0.0` package to version "10.4.0"
 - Upgraded `nodemon 3.0.2` package to version "3.1.0"
+- Removed `@rxpm/logger 1.0.0` package
