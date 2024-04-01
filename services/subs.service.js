@@ -84,7 +84,7 @@ export function updateSubscription(id, data) {
  * Deletes subscription record by given `id`
  * @param {number} id
  */
-export function deleteSubscription(id) {
-    // TODO: Delete related present history records
+export async function deleteSubscription(id) {
+    await deletePresenceHistoryRecordBySubId(id);
     return deleteRow('DELETE FROM subs WHERE id = ?;', [id]);
 }
