@@ -1,9 +1,14 @@
 import { uploadSession } from '../services/session.service.js';
-import { disconnect } from '../utils/mysql.js';
-import logger from '../utils/logger.js';
+import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
 
-uploadSession()
-   .catch(function (error) {
-      logger.error('session:upload', error.message);
-   })
-   .finally(disconnect);
+// TODO: Test session upload functionality
+(async function () {
+    try {
+        await openSQLiteDatabase();
+        await uploadSession();
+    } catch (error) {
+        console.error(error.message);
+    }
+
+    await closeSQLiteDatabase();
+})();

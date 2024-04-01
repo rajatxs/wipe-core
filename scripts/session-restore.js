@@ -1,9 +1,14 @@
 import { restoreLatestSession } from '../services/session.service.js';
-import { disconnect } from '../utils/mysql.js';
-import logger from '../utils/logger.js';
+import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
 
-restoreLatestSession()
-   .catch(function (error) {
-      logger.error('session:restore', error.message);
-   })
-   .finally(disconnect);
+// TODO: Test session restore functionality
+(async function () {
+    try {
+        await openSQLiteDatabase();
+        await restoreLatestSession();
+    } catch (error) {
+        console.error(error.message);
+    }
+
+    await closeSQLiteDatabase();
+})();
