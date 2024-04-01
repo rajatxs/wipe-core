@@ -13,3 +13,4 @@ All notable changes to this project will be documented in this file.
 - Upgraded `nodemon 3.0.2` package to version "3.1.0"
 - Removed `@rxpm/logger 1.0.0` package
 - Removed `mysql 2.18.1` package
+- Upgraded `@whiskeysockets/baileys 6.5.0` package to version "6.6.0"
