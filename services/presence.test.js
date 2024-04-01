@@ -4,7 +4,7 @@ import {
     getPresenceHistoryById,
     insertPresenceHistoryRecord,
     deletePresenceHistoryRecordById,
-} from './presence.service.js';
+} from './presence.js';
 
 const sub_id = 1;
 const tag = 'TEST';

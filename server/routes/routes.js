@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { send200Response } from '../utils/http.js';
-import { authMiddleware } from '../middlewares/auth.middleware.js';
-import authRoutes from './auth.route.js';
-import subsRoutes from './subs.route.js';
-import presenceRoutes from './presence.route.js';
-import pushSubsRoutes from './push-subs.route.js';
-import waSocketRoutes from './wa-socket.route.js';
-import waSessionRoutes from './wa-session.route.js';
+import { send200Response } from '../../utils/http.js';
+import { authMiddleware } from '../middlewares/auth.js';
+import authRoutes from './auth.js';
+import subsRoutes from './subs.js';
+import presenceRoutes from './presence.js';
+import pushSubsRoutes from './push-subs.js';
+import waSocketRoutes from './wa-socket.js';
+import waSessionRoutes from './wa-session.js';
 
 const router = Router();
 

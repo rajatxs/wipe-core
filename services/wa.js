@@ -8,7 +8,7 @@ import {
    registerPresenceUpdateEvent,
    dispatchPresenceUpdateEvent,
    resetPresenceUpdateCounts,
-} from '../services/observer.service.js';
+} from './observer.js';
 import logger from '../utils/logger.js';
 
 /** @type {any} */

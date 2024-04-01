@@ -4,13 +4,13 @@ import {
     send201Response,
     send404Response,
     send500Response,
-} from '../utils/http.js';
+} from '../../utils/http.js';
 import {
     getAllPushSubscriptions,
     getPushSubscriptionById,
     createPushSubscription,
     deletePushSubscription,
-} from '../services/push-subs.service.js';
+} from '../../services/push-subs.js';
 
 /**
  * Send all push subscription records

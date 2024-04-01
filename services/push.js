@@ -1,4 +1,4 @@
-import { getPushSubscriptionPayloadList } from './push-subs.service.js';
+import { getPushSubscriptionPayloadList } from './push-subs.js';
 import { webpush } from '../utils/webpush.js';
 import {
    encodePresenceUpdateNotificationPayload,

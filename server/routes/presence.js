@@ -4,7 +4,7 @@ import {
    sendPresenceHistoryRecordsBySubId,
    deleteSinglePresenceHistoryRecordById,
    deleteAllPresenceHistoryRecordBySubId,
-} from '../controllers/presence.controller.js';
+} from '../controllers/presence.js';
 
 const router = Router();
 

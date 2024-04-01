@@ -1,4 +1,4 @@
-import { generateToken } from '../services/auth.service.js';
+import { generateToken } from '../services/auth.js';
 import { AUTH_SECRET } from '../config/config.js';
 
 (async function () {

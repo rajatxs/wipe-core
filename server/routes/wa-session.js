@@ -6,7 +6,7 @@ import {
    requestToUploadSession,
    requestToRestoreSession,
    deleteSingleSessionRecordById,
-} from '../controllers/wa-session.controller.js';
+} from '../controllers/wa-session.js';
 
 const router = Router();
 

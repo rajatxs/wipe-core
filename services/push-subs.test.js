@@ -4,7 +4,7 @@ import {
     getPushSubscriptionById,
     createPushSubscription,
     deletePushSubscription,
-} from './push-subs.service.js';
+} from './push-subs.js';
 
 var pushSubId = 1,
     payload = '{}';

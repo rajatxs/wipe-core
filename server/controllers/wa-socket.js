@@ -1,7 +1,7 @@
-import { send200Response } from '../utils/http.js';
-import { waSocket, openWASocket, closeWASocket } from '../sockets/wa.socket.js';
-import { sendServiceStatusUpdateNotification } from '../services/push.service.js';
-import { MsgPayloadTypes } from '../config/msg.js';
+import { send200Response } from '../../utils/http.js';
+import { waSocket, openWASocket, closeWASocket } from '../../services/wa.js';
+import { sendServiceStatusUpdateNotification } from '../../services/push.js';
+import { MsgPayloadTypes } from '../../config/msg.js';
 
 /**
  * Sends WA Socket status

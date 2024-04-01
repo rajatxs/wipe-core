@@ -4,16 +4,16 @@ import {
     send404Response,
     send201Response,
     send500Response,
-} from '../utils/http.js';
+} from '../../utils/http.js';
 import {
     getAllSubscriptions,
     getSubscriptionById,
     createSubscription,
     updateSubscription,
     deleteSubscription,
-} from '../services/subs.service.js';
-import { waSocket } from '../sockets/wa.socket.js';
-import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
+} from '../../services/subs.js';
+import { waSocket } from '../../services/wa.js';
+import { registerSocketEventBySubscription } from '../../utils/wa-socket.js';
 
 /**
  * Sends all subscription records

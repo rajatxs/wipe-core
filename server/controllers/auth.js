@@ -1,6 +1,6 @@
-import { send201Response, send400Response } from '../utils/http.js';
-import { generateToken } from '../services/auth.service.js';
-import { AUTH_SECRET } from '../config/config.js';
+import { send201Response, send400Response } from '../../utils/http.js';
+import { generateToken } from '../../services/auth.js';
+import { AUTH_SECRET } from '../../config/config.js';
 
 /**
  * Sends new generated auth token by given `secret`

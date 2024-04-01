@@ -5,7 +5,7 @@ import {
    addNewSubscription,
    updateSubscriptionById,
    deleteSubscriptionById,
-} from '../controllers/subs.controller.js';
+} from '../controllers/subs.js';
 
 const router = Router();
 

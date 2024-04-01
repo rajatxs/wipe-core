@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { send200Response, send404Response, send500Response } from '../utils/http.js';
+import { send200Response, send404Response, send500Response } from '../../utils/http.js';
 import {
     getLatestSessionDetails,
     getSessionDetailsById,
@@ -7,7 +7,7 @@ import {
     uploadSession,
     restoreLatestSession,
     deleteSessionById,
-} from '../services/session.service.js';
+} from '../../services/session.js';
 
 /**
  * Sends details of latest session

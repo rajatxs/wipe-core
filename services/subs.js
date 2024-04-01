@@ -1,5 +1,5 @@
 import { getRow, getRows, insertRow, updateRow, deleteRow } from '../utils/sqlite.js';
-import { deletePresenceHistoryRecordBySubId } from './presence.service.js';
+import { deletePresenceHistoryRecordBySubId } from './presence.js';
 
 /**
  * Returns subscription record by given `id`

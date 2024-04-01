@@ -4,7 +4,7 @@ import {
    sendPushSubscriptionById,
    addNewPushSubscription,
    deleteSinglePushSubscription,
-} from '../controllers/push-subs.controller.js';
+} from '../controllers/push-subs.js';
 
 const router = Router();
 

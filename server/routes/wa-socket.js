@@ -3,7 +3,7 @@ import {
    sendWASocketStatus,
    requestToReopenWASocket,
    requestToCloseWASocket,
-} from '../controllers/wa-socket.controller.js';
+} from '../controllers/wa-socket.js';
 
 const router = Router();
 

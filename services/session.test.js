@@ -9,7 +9,7 @@ import {
     checkSessionRecordById,
     checkSessionRecordBySHA256,
     deleteSessionById,
-} from './session.service.js';
+} from './session.js';
 import { generateArchiveSHA256 } from '../utils/session.js';
 
 let sessionId;

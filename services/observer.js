@@ -1,6 +1,6 @@
-import { getSubscriptions, getSubscriptionByPhone } from './subs.service.js';
-import { insertPresenceHistoryRecord } from './presence.service.js';
-import { sendPresenceUpdateNotification } from './push.service.js';
+import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
+import { insertPresenceHistoryRecord } from './presence.js';
+import { sendPresenceUpdateNotification } from './push.js';
 import { TAG } from '../config/config.js';
 import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 import { format } from 'util';

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sendNewAuthToken } from '../controllers/auth.controller.js';
+import { sendNewAuthToken } from '../controllers/auth.js';
 
 const router = Router();
 

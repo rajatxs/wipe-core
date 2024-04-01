@@ -5,7 +5,7 @@ import {
     createSubscription,
     updateSubscription,
     deleteSubscription,
-} from './subs.service.js';
+} from './subs.js';
 
 const tag = 'TEST';
 

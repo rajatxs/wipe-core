@@ -4,13 +4,13 @@ import {
    send400Response,
    send404Response,
    send500Response,
-} from '../utils/http.js';
+} from '../../utils/http.js';
 import {
    getPresenceHistoryBySubId,
    getPresenceHistoryById,
    deletePresenceHistoryRecordById,
    deletePresenceHistoryRecordBySubId,
-} from '../services/presence.service.js';
+} from '../../services/presence.js';
 
 /**
  * Sends presence history record by given id param
