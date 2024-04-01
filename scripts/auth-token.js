@@ -1,11 +1,11 @@
 import { generateToken } from '../services/auth.service.js';
 import { AUTH_SECRET } from '../config/config.js';
-import logger from '../utils/logger.js';
 
-generateToken(AUTH_SECRET)
-   .then(function (token) {
-      logger.info('auth:token', 'generated:', token);
-   })
-   .catch(function () {
-      logger.error('auth:token', "couldn't generate token");
-   });
+(async function () {
+    try {
+        const token = await generateToken(AUTH_SECRET);
+        console.info(`Token: ${token}`);
+    } catch (error) {
+        console.error(error.message);
+    }
+})();
