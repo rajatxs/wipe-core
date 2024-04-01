@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync } from 'fs';
-import debug from 'debug'; 
+import debug from 'debug';
 import { STORE_ROOT } from '../config/config.js';
 import { openWASocket, closeWASocket } from '../services/wa.js';
 import { startHttpServer, stopHttpServer } from '../server/server.js';
@@ -7,28 +7,28 @@ import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
 import { configureWebPush } from '../utils/webpush.js';
 
 async function terminate() {
-   try {
-      // closeWASocket();
-      await closeSQLiteDatabase();
-      await stopHttpServer();
-   } catch (error) {
-      return process.exit(1);
-   }
+    try {
+        await closeSQLiteDatabase();
+        closeWASocket();
+        await stopHttpServer();
+    } catch (error) {
+        return process.exit(1);
+    }
 
-   process.exit(0);
+    process.exit(0);
 }
 
-(async function() {
-   if (!existsSync(STORE_ROOT)) {
-      mkdirSync(STORE_ROOT);
-      debug('wipe')('store directory created at %s', STORE_ROOT);
-   }
+(async function () {
+    if (!existsSync(STORE_ROOT)) {
+        mkdirSync(STORE_ROOT);
+        debug('wipe')('store directory created at %s', STORE_ROOT);
+    }
 
-   configureWebPush();
-   await openSQLiteDatabase();
-   await startHttpServer();
-   // await openWASocket();
+    configureWebPush();
+    await openSQLiteDatabase();
+    await openWASocket();
+    await startHttpServer();
 
-   process.on('SIGINT', terminate);
-   process.on('SIGTERM', terminate);
-}());
+    process.on('SIGINT', terminate);
+    process.on('SIGTERM', terminate);
+})();

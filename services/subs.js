@@ -26,8 +26,8 @@ export function getAllSubscriptions() {
  */
 export function getSubscriptions(event, limit = 10) {
     // TODO: Validate function definition
-    return getRow(
-        'SELECT * FROM subs WHERE enabled = 1 && event = ? LIMIT ?;',
+    return getRows(
+        'SELECT * FROM subs WHERE enabled = 1 AND event = ? LIMIT ?;',
         [event, limit]
     );
 }
@@ -41,7 +41,7 @@ export function getSubscriptions(event, limit = 10) {
 export function getSubscriptionByPhone(event, phone) {
     // TODO: Validate function definition
     return getRows(
-        'SELECT * FROM subs WHERE enabled = 1 && event = ? && phone = ?;', 
+        'SELECT * FROM subs WHERE enabled = 1 AND event = ? AND phone = ?;', 
         [event, phone]
     );
 }
