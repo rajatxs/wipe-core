@@ -1,3 +1,4 @@
+import debug from 'debug';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
 import { sendPresenceUpdateNotification } from './push.js';
@@ -68,18 +69,15 @@ export async function dispatchPresenceUpdateEvent(event) {
    let subsPromises = subslist.map(async (subs) => {
       if (subs.enabled === 1) {
          const sub_id = subs.id;
-         const res = await insertPresenceHistoryRecord({
+         const recordId = await insertPresenceHistoryRecord({
             status,
             lastseen,
             sub_id,
             tag: TAG,
          });
 
-         if (res.affectedRows > 0) {
-            logger.info(
-               'observer:service',
-               `presence update sub_id=${sub_id} status=${status}`
-            );
+         if (recordId > 0) {
+            debug('wipe:observer')('presence update sub_id=%d status=%d', sub_id, status);
          }
 
          if (subs.notify === 1) {
@@ -100,10 +98,7 @@ export async function registerPresenceUpdateEvent() {
    const subslist = await getSubscriptions('presence.update', 5);
    let subsPromises = subslist.map(async (subs) => {
       await registerSocketEventBySubscription(subs);
-      logger.info(
-         'observer:service',
-         format('subscribe event=%s id=%d', subs.event, subs.id)
-      );
+      debug('wipe:observer')('subscribe event=%s id=%d', subs.event, subs.id);
    });
 
    return Promise.all(subsPromises);
