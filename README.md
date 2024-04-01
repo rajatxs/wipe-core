@@ -35,6 +35,9 @@ yarn install
 Additionally, create a `.env` file with the following variables:
 
 ```shell
+# enable debug logs
+DEBUG = "wipe,wipe:*"
+
 # nodejs environment either "production" or "development"
 NODE_ENV = "development"
 
@@ -87,3 +90,5 @@ yarn start:env
 > For the initial setup, you need to connect your WhatsApp by scanning a QR code from the terminal.
 
 After completing the setup process, the service will begin listening for the events to which you have subscribed.
+
+For more information or inquiries, please contact the project owner: Rajat (rajatxt@proton.me)
