@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Store APIs
+- Socket uptime
 
 ### Changed
 
