@@ -25,7 +25,6 @@ export function getAllSubscriptions() {
  * @returns {Promise<Subscription[]>}
  */
 export function getSubscriptions(event, limit = 10) {
-    // TODO: Validate function definition
     return getRows(
         'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? LIMIT ?;',
         [event, limit]
@@ -39,7 +38,6 @@ export function getSubscriptions(event, limit = 10) {
  * @returns {Promise<Subscription[]>}
  */
 export function getSubscriptionByPhone(event, phone) {
-    // TODO: Validate function definition
     return getRows(
         'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? AND phone = ?;', 
         [event, phone]

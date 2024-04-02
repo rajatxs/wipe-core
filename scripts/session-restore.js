@@ -1,7 +1,6 @@
 import { restoreLatestSession } from '../services/session.js';
 import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
 
-// TODO: Test session restore functionality
 (async function () {
     try {
         await openSQLiteDatabase();

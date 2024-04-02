@@ -1,7 +1,6 @@
 import { uploadSession } from '../services/session.js';
 import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
 
-// TODO: Test session upload functionality
 (async function () {
     try {
         await openSQLiteDatabase();
