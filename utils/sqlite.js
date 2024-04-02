@@ -197,6 +197,26 @@ async function prescript() {
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         `,
+        CREATE_VIEW_SUBS: `
+            CREATE VIEW IF NOT EXISTS \`subs_view\` AS 
+            SELECT id, enabled, alias, event, notify, phone, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
+            FROM subs ORDER BY id DESC;
+        `,
+        CREATE_VIEW_PRES_HIST: `
+            CREATE VIEW IF NOT EXISTS \`pres_hist_view\` AS 
+            SELECT id, status, lastseen, sub_id, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', ts) AS ts 
+            FROM pres_hist ORDER BY id DESC;
+        `,
+        CREATE_VIEW_PUSH_SUBS: `
+            CREATE VIEW IF NOT EXISTS \`push_subs_view\` AS 
+            SELECT id, enabled, user_agent, payload, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
+            FROM push_subs ORDER BY id DESC;
+        `,
+        CREATE_VIEW_SESSIONS: `
+            CREATE VIEW IF NOT EXISTS \`sessions_view\` AS 
+            SELECT id, sha256, archive, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
+            FROM sessions ORDER BY id DESC;
+        `,
     };
 
     for (let queryName in queries) {
