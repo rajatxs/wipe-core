@@ -89,7 +89,7 @@ export function insertSessionRecord(data) {
  * @returns {Promise<SessionRecord>}
  */
 export function getSessionRecordById(id) {
-    return getRow('SELECT * FROM sessions WHERE id = ? LIMIT 1;', [id]);
+    return getRow('SELECT * FROM sessions_view WHERE id = ? LIMIT 1;', [id]);
 }
 
 /**
@@ -99,7 +99,7 @@ export function getSessionRecordById(id) {
  */
 export function getSessionDetailsById(id) {
     return getRow(
-        'SELECT id, sha256, tag, created_at FROM sessions WHERE id = ? LIMIT 1;',
+        'SELECT id, sha256, tag, created_at FROM sessions_view WHERE id = ? LIMIT 1;',
         [id]
     );
 }
@@ -111,7 +111,7 @@ export function getSessionDetailsById(id) {
  */
 export function getAllSessionDetails(limit) {
     return getRows(
-        'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT ?;',
+        'SELECT id, sha256, tag, created_at FROM sessions_view LIMIT ?;',
         [limit]
     );
 }
@@ -122,7 +122,7 @@ export function getAllSessionDetails(limit) {
  */
 export function getLatestSessionDetails() {
     return getRow(
-        'SELECT id, sha256, tag, created_at FROM sessions ORDER BY id DESC LIMIT 1;'
+        'SELECT id, sha256, tag, created_at FROM sessions_view LIMIT 1;'
     );
 }
 
@@ -131,7 +131,7 @@ export function getLatestSessionDetails() {
  * @returns {Promise<Buffer|null>}
  */
 export async function getLatestArchive() {
-    const row = await getRow('SELECT archive FROM sessions ORDER BY id DESC LIMIT 1;');
+    const row = await getRow('SELECT archive FROM sessions_view LIMIT 1;');
 
     if (row && row.archive) {
         return row.archive;

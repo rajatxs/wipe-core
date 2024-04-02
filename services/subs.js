@@ -7,7 +7,7 @@ import { deletePresenceHistoryRecordBySubId } from './presence.js';
  * @returns {Promise<Subscription>}
  */
 export function getSubscriptionById(id) {
-    return getRow('SELECT * FROM subs WHERE id = ? LIMIT 1;', [id]);
+    return getRow('SELECT * FROM subs_view WHERE id = ? LIMIT 1;', [id]);
 }
 
 /**
@@ -15,7 +15,7 @@ export function getSubscriptionById(id) {
  * @returns {Promise<Subscription[]>}
  */
 export function getAllSubscriptions() {
-    return getRows('SELECT * FROM subs ORDER BY id DESC;', []);
+    return getRows('SELECT * FROM subs_view;', []);
 }
 
 /**
@@ -27,7 +27,7 @@ export function getAllSubscriptions() {
 export function getSubscriptions(event, limit = 10) {
     // TODO: Validate function definition
     return getRows(
-        'SELECT * FROM subs WHERE enabled = 1 AND event = ? LIMIT ?;',
+        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? LIMIT ?;',
         [event, limit]
     );
 }
@@ -41,7 +41,7 @@ export function getSubscriptions(event, limit = 10) {
 export function getSubscriptionByPhone(event, phone) {
     // TODO: Validate function definition
     return getRows(
-        'SELECT * FROM subs WHERE enabled = 1 AND event = ? AND phone = ?;', 
+        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? AND phone = ?;', 
         [event, phone]
     );
 }

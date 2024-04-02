@@ -6,7 +6,7 @@ import { getRow, getRows, insertRow, deleteRow } from '../utils/sqlite.js';
  * @returns {Promise<PresenceHistory>}
  */
 export function getPresenceHistoryById(id) {
-    return getRow('SELECT * FROM pres_hist WHERE id = ? LIMIT 1;', [id]);
+    return getRow('SELECT * FROM pres_hist_view WHERE id = ? LIMIT 1;', [id]);
 }
 
 /**
@@ -16,7 +16,7 @@ export function getPresenceHistoryById(id) {
  * @returns {Promise<PresenceHistory[]>}
  */
 export function getPresenceHistoryBySubId(subId, limit) {
-    return getRows('SELECT * FROM pres_hist WHERE sub_id = ? ORDER BY id DESC LIMIT ?;', [
+    return getRows('SELECT * FROM pres_hist_view WHERE sub_id = ? LIMIT ?;', [
         subId,
         limit,
     ]);

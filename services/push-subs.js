@@ -6,7 +6,7 @@ import { getRow, getRows, insertRow, deleteRow } from '../utils/sqlite.js';
  * @returns {Promise<PushSubscriptionRecord[]>}
  */
 export function getAllPushSubscriptions(limit) {
-    return getRows('SELECT * FROM push_subs ORDER BY id DESC LIMIT ?;', [limit]);
+    return getRows('SELECT * FROM push_subs_view LIMIT ?;', [limit]);
 }
 
 /**
@@ -14,7 +14,7 @@ export function getAllPushSubscriptions(limit) {
  * @returns {Promise<PushSubscriptionRecord[]>}
  */
 export function getEnabledPushSubscriptions() {
-    return getRows('SELECT * FROM push_subs WHERE enabled = 1 ORDER BY id DESC;');
+    return getRows('SELECT * FROM push_subs_view WHERE enabled = 1;');
 }
 
 /**
@@ -23,7 +23,7 @@ export function getEnabledPushSubscriptions() {
  * @returns {Promise<PushSubscriptionRecord>}
  */
 export function getPushSubscriptionById(id) {
-    return getRow('SELECT * FROM push_subs WHERE id = ? LIMIT 1;', [id]);
+    return getRow('SELECT * FROM push_subs_view WHERE id = ? LIMIT 1;', [id]);
 }
 
 /**
