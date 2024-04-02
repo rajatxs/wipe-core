@@ -47,28 +47,23 @@ export function uploadSession(tag = TAG) {
     });
 }
 
-export function restoreLatestSession() {
-    return new Promise(function (resolve, reject) {
-        /** @type {AdmZip} */
-        let zip;
+/**
+ * Fetch archive file from the database 
+ * and extract into the session root directory
+ * @returns {Promise<void>}
+ */
+export async function restoreLatestSession() {
+    const archive = await getLatestArchive();
 
-        getLatestArchive()
-            .then(function (archive) {
-                if (!archive) {
-                    return reject(new Error('archive not found'));
-                }
+    /** @type {AdmZip} */
+    let zip;
 
-                zip = new AdmZip(archive);
-                zip.extractAllToAsync(SESSION_ROOT, true, false, function (err) {
-                    if (err) {
-                        return reject(err);
-                    }
+    if (!archive) {
+        throw new Error('archive not found');
+    }
 
-                    resolve();
-                });
-            })
-            .catch(reject);
-    });
+    zip = new AdmZip(archive);
+    zip.extractAllTo(SESSION_ROOT, true, false, '');
 }
 
 /**
@@ -131,7 +126,7 @@ export function getLatestSessionDetails() {
  * @returns {Promise<Buffer|null>}
  */
 export async function getLatestArchive() {
-    const row = await getRow('SELECT archive FROM sessions_view LIMIT 1;');
+    const row = await getRow('SELECT archive FROM sessions LIMIT 1;');
 
     if (row && row.archive) {
         return row.archive;
