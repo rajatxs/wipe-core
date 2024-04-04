@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - Upgraded `@whiskeysockets/baileys 6.5.0` package to version "6.6.0"
 - Upgraded `web-push 3.5.0` package to version "3.6.7"
 - Upgraded `msgpackr 1.6.2` package to version "1.10.1"
+- Added `multer 1.4.5` package
 
 ### Deprecated
 
