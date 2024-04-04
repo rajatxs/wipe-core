@@ -8,6 +8,7 @@ export const PORT = process.env.PORT || '8000';
 
 // common vars
 export const STORE_ROOT = process.env.WIPE_STORE_ROOT || path.join(homedir(), '.wipe');
+export const UPLOAD_ROOT = path.join(STORE_ROOT, 'uploads');
 export const TAG = process.env.WIPE_TAG || getTag();
 export const WEBPUSH_SUBJECT = process.env.WIPE_WEBPUSH_SUBJECT;
 export const AUTH_SECRET = process.env.WIPE_AUTH_SECRET;
