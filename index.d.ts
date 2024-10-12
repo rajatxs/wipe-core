@@ -47,6 +47,8 @@ declare interface SessionRecord {
    created_at?: Date;
 }
 
+declare type SessionDetail = Omit<SessionRecord, 'archive'>;
+
 type PresenceNotificationPayload = [
    /** Payload type */
    number, 
