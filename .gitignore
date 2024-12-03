@@ -7,3 +7,5 @@ certs/
 fly.toml
 .env 
 *.log
+.wipe
+.DS_Store

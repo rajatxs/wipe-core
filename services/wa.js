@@ -8,6 +8,7 @@ import { SESSION_ROOT } from '../config/config.js';
 import {
     registerPresenceUpdateEvent,
     dispatchPresenceUpdateEvent,
+    dispatchStatusAddedEvent,
     resetPresenceUpdateCounts,
 } from './observer.js';
 
@@ -76,6 +77,19 @@ export async function openWASocket() {
         if (events['presence.update']) {
             const event = events['presence.update'];
             await dispatchPresenceUpdateEvent(event);
+        }
+
+        if (events['chats.update'] && Array.isArray(events['chats.update'])) {
+            const list = events['chats.update'];
+            const statusFlag = list.some(function (item) {
+                return (
+                    typeof item.id === 'string' && item.id.includes('status@broadcast')
+                );
+            });
+
+            if (statusFlag) {
+                await dispatchStatusAddedEvent();
+            }
         }
     });
 
