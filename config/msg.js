@@ -10,4 +10,8 @@ export const MsgPayloadTypes = {
    get PRESENCE_UPDATE() {
       return 0x14;
    },
+
+   get STATUS_ADDED() {
+      return 0x15;
+   },
 };
