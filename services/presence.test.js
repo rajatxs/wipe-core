@@ -34,7 +34,6 @@ describe('Presence service', function () {
 
     it('should return presence history record', async function () {
         const record = await getPresenceHistoryById(presRecordId);
-        console.log("record", record)
 
         assert.equal(record.id, presRecordId, 'incorrect id');
         assert.equal(record.status, 1, 'incorrect status');

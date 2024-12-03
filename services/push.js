@@ -2,6 +2,7 @@ import { getPushSubscriptionPayloadList } from './push-subs.js';
 import { webpush } from '../utils/webpush.js';
 import {
    encodePresenceUpdateNotificationPayload,
+   encodeStatusAddedNotificationPayload,
    encodeServiceStatusUpdateNotificationPayload,
 } from '../utils/msg.js';
 
@@ -17,6 +18,17 @@ export async function sendPresenceUpdateNotification(subscription, status) {
          subscription.alias,
          Boolean(status)
       );
+      return webpush().sendNotification(pushpayload, data.toString('base64'));
+   });
+
+   return Promise.all(psubsPromises);
+}
+
+/** Sends status added push notification */
+export async function sendStatusAddedNotification() {
+   const payloadList = await getPushSubscriptionPayloadList();
+   const psubsPromises = payloadList.map(function (pushpayload) {
+      const data = encodeStatusAddedNotificationPayload();
       return webpush().sendNotification(pushpayload, data.toString('base64'));
    });
 

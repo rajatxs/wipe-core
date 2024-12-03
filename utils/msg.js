@@ -12,6 +12,13 @@ export function encodePresenceUpdateNotificationPayload(alias, status) {
    return encode(payload);
 }
 
+/** Returns encoded status added notification payload */
+export function encodeStatusAddedNotificationPayload() {
+   /** @type {StatusAddedNotificationPayload} */
+   const payload = [MsgPayloadTypes.STATUS_ADDED, Date.now()];
+   return encode(payload);
+}
+
 /**
  * Returns encoded service status update notification payload
  * @param {number} serviceType
