@@ -11,8 +11,8 @@ import { MsgPayloadTypes } from '../../config/msg.js';
 export function sendWASocketStatus(req, res) {
     try {
         const uptime = getUptime();
-
         const opened = Boolean(waSocket());
+
         send200Response(res, 'Socket status', { opened, uptime });
     } catch (error) {
         throw new Error("Couldn't get socket status");
