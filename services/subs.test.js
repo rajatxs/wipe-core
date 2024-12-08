@@ -45,17 +45,21 @@ describe('Subscription service', function () {
 
         assert.ok(subs, 'subscription not found');
         assert.equal(subs.id, subId, 'incorrect id');
-        assert.equal(typeof subs.enabled, 'number', 'invalid type of enabled');
+        assert.equal(typeof subs.enabled, 'boolean', 'invalid type of enabled');
         assert.equal(typeof subs.alias, 'string', 'invalid type of alias');
         assert.equal(subs.tag, tag, 'incorrect tag');
         assert.ok(events.includes(subs.event), 'incorrect event');
-        assert.equal(typeof subs.notify, 'number', 'invalid notify');
+        assert.equal(typeof subs.notify, 'boolean', 'invalid type of notify');
         assert.strictEqual(subs.phone, phone, 'incorrect phone');
     });
 
     it('should update subscription record', async function () {
         alias = 'New alias';
-        const changes = await updateSubscription(subId, { alias, enabled: 0, notify: 0 });
+        const changes = await updateSubscription(subId, {
+            alias,
+            enabled: false,
+            notify: false,
+        });
         assert.equal(changes, 1, 'more rows are affected');
 
         // Get updated subscription record
