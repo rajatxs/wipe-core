@@ -1,21 +1,24 @@
+import { Subscription } from '../models/Subscription.js';
 import { getRow, getRows, insertRow, updateRow, deleteRow } from '../utils/sqlite.js';
 import { deletePresenceHistoryRecordBySubId } from './presence.js';
 
 /**
  * Returns subscription record by given `id`
  * @param {number} id
- * @returns {Promise<Subscription>}
+ * @returns {Promise<Subscription|null>}
  */
-export function getSubscriptionById(id) {
-    return getRow('SELECT * FROM subs_view WHERE id = ? LIMIT 1;', [id]);
+export async function getSubscriptionById(id) {
+    const row = await getRow('SELECT * FROM subs_view WHERE id = ? LIMIT 1;', [id]);
+    return row ? Subscription.fromRow(row) : null;
 }
 
 /**
  * Returns all subscription
  * @returns {Promise<Subscription[]>}
  */
-export function getAllSubscriptions() {
-    return getRows('SELECT * FROM subs_view;', []);
+export async function getAllSubscriptions() {
+    const rows = await getRows('SELECT * FROM subs_view;', []);
+    return rows.map(Subscription.fromRow);
 }
 
 /**
@@ -24,11 +27,12 @@ export function getAllSubscriptions() {
  * @param {number} limit
  * @returns {Promise<Subscription[]>}
  */
-export function getSubscriptions(event, limit = 10) {
-    return getRows(
+export async function getSubscriptions(event, limit = 10) {
+    const rows = await getRows(
         'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? LIMIT ?;',
         [event, limit]
     );
+    return rows.map(Subscription.fromRow);
 }
 
 /**
@@ -37,11 +41,12 @@ export function getSubscriptions(event, limit = 10) {
  * @param {string} phone
  * @returns {Promise<Subscription[]>}
  */
-export function getSubscriptionByPhone(event, phone) {
-    return getRows(
-        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? AND phone = ?;', 
+export async function getSubscriptionByPhone(event, phone) {
+    const rows = await getRows(
+        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? AND phone = ?;',
         [event, phone]
     );
+    return rows.map(Subscription.fromRow);
 }
 
 /**

@@ -1,4 +1,5 @@
 import { waSocket } from '../services/wa.js';
+import { Subscription } from '../models/Subscription.js';
 import { jidEncode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 
 // TODO: Move registerSocketEventBySubscription() to WAService

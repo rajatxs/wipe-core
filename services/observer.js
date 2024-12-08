@@ -65,7 +65,7 @@ export async function dispatchPresenceUpdateEvent(event) {
     const subslist = await getSubscriptionByPhone('presence.update', phone);
 
     let subsPromises = subslist.map(async (subs) => {
-        if (subs.enabled === 1) {
+        if (subs.enabled) {
             const sub_id = subs.id;
             const recordId = await insertPresenceHistoryRecord({
                 status,
@@ -82,7 +82,7 @@ export async function dispatchPresenceUpdateEvent(event) {
                 );
             }
 
-            if (subs.notify === 1) {
+            if (subs.notify) {
                 return sendPresenceUpdateNotification(subs, status);
             }
         }
@@ -103,8 +103,8 @@ export async function dispatchStatusAddedEvent() {
  * @returns {Promise<any>}
  */
 export async function registerPresenceUpdateEvent() {
-    const subslist = await getSubscriptions('presence.update', 5);
-    let subsPromises = subslist.map(async (subs) => {
+    const subslist = await getSubscriptions('presence.update', 10);
+    let subsPromises = subslist.map(async function (subs) {
         await registerSocketEventBySubscription(subs);
         debug('wipe:observer')('subscribe event=%s id=%d', subs.event, subs.id);
     });

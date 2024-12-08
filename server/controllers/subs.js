@@ -12,6 +12,7 @@ import {
     updateSubscription,
     deleteSubscription,
 } from '../../services/subs.js';
+import { Subscription } from '../../models/Subscription.js';
 import { waSocket } from '../../services/wa.js';
 import { registerSocketEventBySubscription } from '../../utils/wa-socket.js';
 
