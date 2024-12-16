@@ -53,3 +53,27 @@ export function requestToCloseWASocket(req, res) {
         throw new Error("Couldn't close socket connection");
     }
 }
+
+/**
+ * Handles request to restart WA Socket connection
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function requestToRestartWASocket(req, res) {
+    const delay = 5000;
+    try {
+        closeWASocket();
+        sendServiceStatusUpdateNotification(MsgPayloadTypes.SOCKET_STATUS_UPDATE, false);
+
+        setTimeout(async function () {
+            await openWASocket();
+            sendServiceStatusUpdateNotification(
+                MsgPayloadTypes.SOCKET_STATUS_UPDATE,
+                true
+            );
+            send200Response(res, 'Socket restarted');
+        }, delay);
+    } catch (error) {
+        throw new Error("Coudn't restart socket connection");
+    }
+}
