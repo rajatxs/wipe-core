@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import { join } from 'path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'fs';
+import debug from 'debug';
 import { send200Response, send500Response } from '../../utils/http.js';
 import { NODE_ENV } from '../../config/config.js';
 import { authMiddleware } from '../middlewares/auth.js';
@@ -28,11 +31,10 @@ router.get('/ping', function (req, res) {
 
 router.get('/info', function (req, res) {
     try {
-        const content = readFileSync(
-            // @ts-ignore
-            join(import.meta.dirname, '..', '..', 'package.json'),
-            'utf8'
-        );
+        // @ts-ignore
+        const dir = dirname(fileURLToPath(import.meta.url));
+        const filepath = join(dir, '..', '..', 'package.json');
+        const content = readFileSync(filepath, 'utf8');
         const config = JSON.parse(content);
 
         send200Response(res, 'Ok', {
@@ -40,6 +42,7 @@ router.get('/info', function (req, res) {
             version: config.version,
         });
     } catch (error) {
+        debug('wipe:controller')(error.message);
         send500Response(res, "Couldn't get version info");
     }
 });
