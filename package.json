@@ -1,6 +1,6 @@
 {
     "name": "@rxpm/wipe-core",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "main": "scripts/start.js",
     "scripts": {
         "start": "node scripts/start.js",
