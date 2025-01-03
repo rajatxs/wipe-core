@@ -39,16 +39,6 @@ declare interface PushSubscriptionRecord {
     created_at?: string;
 }
 
-declare interface SessionRecord {
-    id?: number;
-    sha256: string;
-    archive: Buffer;
-    tag?: string;
-    created_at?: Date;
-}
-
-declare type SessionDetail = Omit<SessionRecord, 'archive'>;
-
 type PresenceNotificationPayload = [
     /** Payload type */
     number,

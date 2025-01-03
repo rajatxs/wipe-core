@@ -178,15 +178,6 @@ async function prescript() {
                 ts DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         `,
-        CREATE_TABLE_SESSIONS: `
-            CREATE TABLE IF NOT EXISTS \`sessions\` (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                sha256 VARCHAR(64) NOT NULL,
-                archive BLOB NOT NULL,
-                tag VARCHAR(8),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-        `,
         CREATE_VIEW_SUBS: `
             CREATE VIEW IF NOT EXISTS \`subs_view\` AS 
             SELECT id, enabled, alias, event, notify, phone, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
@@ -196,11 +187,6 @@ async function prescript() {
             CREATE VIEW IF NOT EXISTS \`pres_hist_view\` AS 
             SELECT id, status, lastseen, sub_id, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', ts) AS ts 
             FROM pres_hist ORDER BY id DESC;
-        `,
-        CREATE_VIEW_SESSIONS: `
-            CREATE VIEW IF NOT EXISTS \`sessions_view\` AS 
-            SELECT id, sha256, archive, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
-            FROM sessions ORDER BY id DESC;
         `,
     };
 
