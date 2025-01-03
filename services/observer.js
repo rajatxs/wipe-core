@@ -1,8 +1,9 @@
 import debug from 'debug';
+import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
+import { sendWANotification } from './wa.js';
 import { TAG } from '../config/config.js';
-import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
 
 /** @type {Map<string, number>} */
@@ -90,7 +91,7 @@ export async function dispatchPresenceUpdateEvent(event) {
 /** Dispatch status added event */
 export async function dispatchStatusAddedEvent() {
     debug('wipe:observer')('status added');
-    // TODO: Send event to subscriber
+    sendWANotification('new status has been added');
     return Promise.resolve();
 }
 

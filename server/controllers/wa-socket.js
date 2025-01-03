@@ -1,5 +1,11 @@
 import { send200Response } from '../../utils/http.js';
-import { waSocket, getUptime, openWASocket, closeWASocket } from '../../services/wa.js';
+import {
+    waSocket,
+    getUptime,
+    openWASocket,
+    sendWANotification,
+    closeWASocket,
+} from '../../services/wa.js';
 
 /**
  * Sends WA Socket status
@@ -26,7 +32,10 @@ export async function requestToReopenWASocket(req, res) {
     try {
         if (!waSocket()) {
             await openWASocket();
-            // TODO: Send event to subscriber
+
+            setTimeout(async function () {
+                await sendWANotification('socket is opened');
+            }, 5000);
         }
         send200Response(res, 'Socket opened');
     } catch (error) {
@@ -39,10 +48,10 @@ export async function requestToReopenWASocket(req, res) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export function requestToCloseWASocket(req, res) {
+export async function requestToCloseWASocket(req, res) {
     try {
+        await sendWANotification('socket is closing...');
         closeWASocket();
-        // TODO: Send event to subscriber
         send200Response(res, 'Socket closed');
     } catch (error) {
         throw new Error("Couldn't close socket connection");
@@ -60,8 +69,12 @@ export async function requestToRestartWASocket(req, res) {
         closeWASocket();
         setTimeout(async function () {
             await openWASocket();
+
+            setTimeout(async function () {
+                await sendWANotification('socket has been restarted');
+            }, 5000);
+
             send200Response(res, 'Socket restarted');
-            // TODO: Send event to subscriber
         }, delay);
     } catch (error) {
         throw new Error("Coudn't restart socket connection");
