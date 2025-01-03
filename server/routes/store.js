@@ -1,11 +1,9 @@
 import { Router } from 'express';
-import { sendStoreInfo, sendStoreFile, downloadStoreFile } from '../controllers/store.js';
-import { upload } from '../../utils/multer.js';
+import { sendStoreFile, handleUploadFile } from '../controllers/store.js';
 
 const router = Router();
 
-router.get('/info', sendStoreInfo);
 router.get('/file', sendStoreFile);
-router.post('/file', upload.single('file'), downloadStoreFile);
+router.post('/file', handleUploadFile);
 
 export default router;
