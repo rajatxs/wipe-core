@@ -7,7 +7,7 @@ import { TAG } from '../../config/config.js';
  * @param {import('express').NextFunction} next
  */
 export function rootMiddleware(req, res, next) {
-   req.locals = {};
-   req.locals.tag = req.header('X-Tag') || TAG;
-   next(null);
+    req.locals = {};
+    req.locals.tag = req.header('X-Tag') || TAG;
+    next(null);
 }

@@ -55,13 +55,13 @@ export function insertRow(query, params = []) {
             } else {
                 const id = this.lastID;
 
-                stmt.finalize(function(error2) {
+                stmt.finalize(function (error2) {
                     if (error2) {
                         reject(error2);
                     } else {
                         resolve(id);
                     }
-                })
+                });
             }
         });
     });
@@ -83,13 +83,13 @@ export function updateRow(query, params = []) {
             } else {
                 const changes = this.changes;
 
-                stmt.finalize(function(error2) {
+                stmt.finalize(function (error2) {
                     if (error2) {
                         reject(error2);
                     } else {
                         resolve(changes);
                     }
-                })
+                });
             }
         });
     });
@@ -111,13 +111,13 @@ export function deleteRow(query, params = []) {
             } else {
                 const changes = this.changes;
 
-                stmt.finalize(function(error2) {
+                stmt.finalize(function (error2) {
                     if (error2) {
                         reject(error2);
                     } else {
                         resolve(changes);
                     }
-                })
+                });
             }
         });
     });
@@ -245,15 +245,17 @@ export function closeSQLiteDatabase() {
             return resolve();
         }
 
-        instance.close(/** @param {any} error */ function (error) {
-            if (error) {
-                debug('wipe:sqlite:error')(error.message);
-                reject(error);
-            } else {
-                instance = null;
-                debug('wipe:sqlite')('database closed');
-                resolve();
+        instance.close(
+            /** @param {any} error */ function (error) {
+                if (error) {
+                    debug('wipe:sqlite:error')(error.message);
+                    reject(error);
+                } else {
+                    instance = null;
+                    debug('wipe:sqlite')('database closed');
+                    resolve();
+                }
             }
-        });
+        );
     });
 }

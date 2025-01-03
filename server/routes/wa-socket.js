@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import {
-   sendWASocketStatus,
-   requestToReopenWASocket,
-   requestToCloseWASocket,
-   requestToRestartWASocket,
+    sendWASocketStatus,
+    requestToReopenWASocket,
+    requestToCloseWASocket,
+    requestToRestartWASocket,
 } from '../controllers/wa-socket.js';
 
 const router = Router();
