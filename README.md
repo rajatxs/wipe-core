@@ -47,20 +47,6 @@ PORT = "5050"
 # use any secret to authenticate incoming API request
 WIPE_AUTH_SECRET = "<your auth secret>"
 
-# webpush subject either any URL or mailto:<your email>
-WIPE_WEBPUSH_SUBJECT = "<your webpush subject>"
-WIPE_VAPID_PUBLIC = "<your public VAPID key>"
-WIPE_VAPID_PRIVATE = "<your private VAPID key>"
-```
-
-#### Pro Tip:
-
-You can generate VAPID keys using:
-
-```shell
-npx web-push generate-vapid-keys
-```
-
 ## Usage
 
 Once the setup is completed, you can initiate the HTTP and WhatsApp Socket service using the following command:

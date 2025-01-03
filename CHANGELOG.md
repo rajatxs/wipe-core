@@ -3,16 +3,13 @@ All notable changes to this project will be documented in this file.
 ## v3.0.0
 
 ### Added
-
 - Store APIs
 - Socket uptime
 
 ### Changed
-
 - Uses SQLite 3
 
 ### Dependency changes
-
 - Added `sqlite3 5.1.7` package
 - Added `debug 4.3.4` package
 - Added `@types/mocha 10.0.6` package
@@ -28,11 +25,18 @@ All notable changes to this project will be documented in this file.
 - Added `multer 1.4.5` package
 
 ### Deprecated
-
 - Deprecated MySQL in favor of SQLite
 
 ### Removed
-
 - Logger utility
 - MySQL utility
 - SQL scripts
+
+## v3.2.0
+
+### Dependency changes
+- Removed `web-push` package
+- Removed `msgpackr` package
+
+### Removed
+- Push service
