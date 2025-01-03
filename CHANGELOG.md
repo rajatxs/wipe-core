@@ -37,6 +37,7 @@ All notable changes to this project will be documented in this file.
 ### Dependency changes
 - Removed `web-push` package
 - Removed `msgpackr` package
+- Removed `adm-zip` package
 
 ### Removed
 - Push service
