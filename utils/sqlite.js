@@ -178,16 +178,6 @@ async function prescript() {
                 ts DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         `,
-        CREATE_TABLE_PUSH_SUBS: `
-            CREATE TABLE IF NOT EXISTS \`push_subs\` (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                enabled BOOLEAN DEFAULT 1,
-                user_agent TEXT,
-                payload JSON NOT NULL,
-                tag VARCHAR(8),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-        `,
         CREATE_TABLE_SESSIONS: `
             CREATE TABLE IF NOT EXISTS \`sessions\` (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -206,11 +196,6 @@ async function prescript() {
             CREATE VIEW IF NOT EXISTS \`pres_hist_view\` AS 
             SELECT id, status, lastseen, sub_id, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', ts) AS ts 
             FROM pres_hist ORDER BY id DESC;
-        `,
-        CREATE_VIEW_PUSH_SUBS: `
-            CREATE VIEW IF NOT EXISTS \`push_subs_view\` AS 
-            SELECT id, enabled, user_agent, payload, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
-            FROM push_subs ORDER BY id DESC;
         `,
         CREATE_VIEW_SESSIONS: `
             CREATE VIEW IF NOT EXISTS \`sessions_view\` AS 
