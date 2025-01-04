@@ -1,6 +1,6 @@
 import sqlite3 from 'sqlite3';
 import debug from 'debug';
-import { SQLITE_DB_FILE } from '../config/config.js';
+import { SQLITE_DB_FILE } from '../config.js';
 
 /** @type {sqlite3.Database} */
 var instance;
@@ -55,13 +55,13 @@ export function insertRow(query, params = []) {
             } else {
                 const id = this.lastID;
 
-                stmt.finalize(function(error2) {
+                stmt.finalize(function (error2) {
                     if (error2) {
                         reject(error2);
                     } else {
                         resolve(id);
                     }
-                })
+                });
             }
         });
     });
@@ -83,13 +83,13 @@ export function updateRow(query, params = []) {
             } else {
                 const changes = this.changes;
 
-                stmt.finalize(function(error2) {
+                stmt.finalize(function (error2) {
                     if (error2) {
                         reject(error2);
                     } else {
                         resolve(changes);
                     }
-                })
+                });
             }
         });
     });
@@ -111,13 +111,13 @@ export function deleteRow(query, params = []) {
             } else {
                 const changes = this.changes;
 
-                stmt.finalize(function(error2) {
+                stmt.finalize(function (error2) {
                     if (error2) {
                         reject(error2);
                     } else {
                         resolve(changes);
                     }
-                })
+                });
             }
         });
     });
@@ -178,25 +178,6 @@ async function prescript() {
                 ts DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         `,
-        CREATE_TABLE_PUSH_SUBS: `
-            CREATE TABLE IF NOT EXISTS \`push_subs\` (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                enabled BOOLEAN DEFAULT 1,
-                user_agent TEXT,
-                payload JSON NOT NULL,
-                tag VARCHAR(8),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-        `,
-        CREATE_TABLE_SESSIONS: `
-            CREATE TABLE IF NOT EXISTS \`sessions\` (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                sha256 VARCHAR(64) NOT NULL,
-                archive BLOB NOT NULL,
-                tag VARCHAR(8),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-        `,
         CREATE_VIEW_SUBS: `
             CREATE VIEW IF NOT EXISTS \`subs_view\` AS 
             SELECT id, enabled, alias, event, notify, phone, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
@@ -206,16 +187,6 @@ async function prescript() {
             CREATE VIEW IF NOT EXISTS \`pres_hist_view\` AS 
             SELECT id, status, lastseen, sub_id, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', ts) AS ts 
             FROM pres_hist ORDER BY id DESC;
-        `,
-        CREATE_VIEW_PUSH_SUBS: `
-            CREATE VIEW IF NOT EXISTS \`push_subs_view\` AS 
-            SELECT id, enabled, user_agent, payload, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
-            FROM push_subs ORDER BY id DESC;
-        `,
-        CREATE_VIEW_SESSIONS: `
-            CREATE VIEW IF NOT EXISTS \`sessions_view\` AS 
-            SELECT id, sha256, archive, tag, STRFTIME('%Y-%m-%dT%H:%M:%SZ', created_at) AS created_at 
-            FROM sessions ORDER BY id DESC;
         `,
     };
 
@@ -274,15 +245,17 @@ export function closeSQLiteDatabase() {
             return resolve();
         }
 
-        instance.close(/** @param {any} error */ function (error) {
-            if (error) {
-                debug('wipe:sqlite:error')(error.message);
-                reject(error);
-            } else {
-                instance = null;
-                debug('wipe:sqlite')('database closed');
-                resolve();
+        instance.close(
+            /** @param {any} error */ function (error) {
+                if (error) {
+                    debug('wipe:sqlite:error')(error.message);
+                    reject(error);
+                } else {
+                    instance = null;
+                    debug('wipe:sqlite')('database closed');
+                    resolve();
+                }
             }
-        });
+        );
     });
 }

@@ -4,7 +4,8 @@ import makeWASocket, {
     fetchLatestBaileysVersion,
     useMultiFileAuthState,
 } from '@whiskeysockets/baileys';
-import { SESSION_ROOT } from '../config/config.js';
+import { jidEncode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
+import { SESSION_ROOT, SUBSCRIBER_PHONE } from '../config.js';
 import {
     registerPresenceUpdateEvent,
     dispatchPresenceUpdateEvent,
@@ -94,6 +95,46 @@ export async function openWASocket() {
     });
 
     return _waSocket;
+}
+
+/**
+ * Send message to specified subscriber
+ * @param {string} text
+ * @returns {Promise<void>}
+ */
+export async function sendWANotification(text) {
+    const jid = jidEncode(SUBSCRIBER_PHONE, 's.whatsapp.net');
+
+    if (!_waSocket) {
+        return;
+    }
+
+    await _waSocket.sendMessage(jid, {
+        type: 'text',
+        text: `*wipe:* ${text}`,
+    });
+}
+
+/**
+ * Registers new subscription of given `subs` based on `event`
+ * @param {Subscription} subs
+ * @returns {Promise<any>}
+ */
+export async function registerWAEventBySubscription(subs) {
+    const jid = jidEncode(subs.phone, 's.whatsapp.net');
+    let output;
+
+    if (!_waSocket) {
+        return;
+    }
+
+    switch (subs.event) {
+        case 'presence.update':
+            output = await _waSocket.presenceSubscribe(jid);
+            break;
+    }
+
+    return output;
 }
 
 export function closeWASocket() {

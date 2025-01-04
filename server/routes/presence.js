@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import {
-   sendPresenceHistoryRecordsById,
-   sendPresenceHistoryRecordsBySubId,
-   deleteSinglePresenceHistoryRecordById,
-   deleteAllPresenceHistoryRecordBySubId,
+    sendPresenceHistoryRecordsById,
+    sendPresenceHistoryRecordsBySubId,
+    deleteSinglePresenceHistoryRecordById,
+    deleteAllPresenceHistoryRecordBySubId,
 } from '../controllers/presence.js';
 
 const router = Router();

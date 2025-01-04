@@ -1,16 +1,11 @@
 {
     "name": "@rxpm/wipe-core",
-    "version": "3.0.1",
-    "main": "scripts/start.js",
+    "version": "3.3.0",
+    "main": "main.js",
     "scripts": {
-        "start": "node scripts/start.js",
-        "start:env": "env-cmd node scripts/start.js",
-        "dev:env": "env-cmd nodemon scripts/start.js",
-        "test": "mocha services",
-        "test:env": "env-cmd mocha services",
-        "session:upload": "env-cmd node scripts/session-upload.js",
-        "session:restore": "env-cmd node scripts/session-restore.js",
-        "auth:token": "env-cmd node scripts/auth-token.js"
+        "start": "node main.js",
+        "dev": "env-cmd nodemon main.js",
+        "test": "env-cmd mocha services"
     },
     "author": {
         "name": "Rajat Sharma",
@@ -35,23 +30,19 @@
     },
     "markdown": "github",
     "dependencies": {
-        "@whiskeysockets/baileys": "^6.7.8",
-        "adm-zip": "^0.5.12",
+        "@whiskeysockets/baileys": "^6.7.9",
         "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
-        "debug": "^4.3.4",
-        "express": "^4.19.2",
-        "msgpackr": "^1.10.1",
-        "multer": "^1.4.5-lts.1",
+        "debug": "^4.4.0",
+        "express": "^4.21.2",
         "qrcode-terminal": "^0.12.0",
-        "sqlite3": "^5.1.7",
-        "web-push": "^3.6.7"
+        "sqlite3": "^5.1.7"
     },
     "devDependencies": {
-        "@flydotio/dockerfile": "^0.5.0",
-        "@types/mocha": "^10.0.6",
+        "@flydotio/dockerfile": "^0.5.9",
+        "@types/mocha": "^10.0.10",
         "env-cmd": "^10.1.0",
-        "mocha": "^10.4.0",
-        "nodemon": "^3.1.0"
+        "mocha": "^10.8.2",
+        "nodemon": "^3.1.9"
     }
 }

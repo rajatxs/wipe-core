@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-   sendAllSubscriptions,
-   sendSubscriptionById,
-   addNewSubscription,
-   updateSubscriptionById,
-   deleteSubscriptionById,
+    sendAllSubscriptions,
+    sendSubscriptionById,
+    addNewSubscription,
+    updateSubscriptionById,
+    deleteSubscriptionById,
 } from '../controllers/subs.js';
 
 const router = Router();

@@ -25,10 +25,10 @@ export function getAllSubscriptions() {
  * @returns {Promise<Subscription[]>}
  */
 export function getSubscriptions(event, limit = 10) {
-    return getRows(
-        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? LIMIT ?;',
-        [event, limit]
-    );
+    return getRows('SELECT * FROM subs_view WHERE enabled = 1 AND event = ? LIMIT ?;', [
+        event,
+        limit,
+    ]);
 }
 
 /**
@@ -39,7 +39,7 @@ export function getSubscriptions(event, limit = 10) {
  */
 export function getSubscriptionByPhone(event, phone) {
     return getRows(
-        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? AND phone = ?;', 
+        'SELECT * FROM subs_view WHERE enabled = 1 AND event = ? AND phone = ?;',
         [event, phone]
     );
 }

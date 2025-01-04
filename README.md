@@ -1,16 +1,16 @@
 # Wipe Core
 
-Wipe enables you to monitor users presence on WhatsApp.
+Wipe allows you to monitor user presence on WhatsApp.
 
 ## Requirements
 
-To utilize Wipe, ensure the following software applications are installed:
+Before you begin, ensure that the following software is installed on your system:
 
 - [Node 12](https://nodejs.org)
 
 ## Install
 
-Clone this repository and navigate to the corresponding directory:
+Clone this repository and navigate to the appropriate directory:
 
 ```shell
 git clone https://github.com/rajatxs/wipe-core.git wipe
@@ -20,7 +20,7 @@ git clone https://github.com/rajatxs/wipe-core.git wipe
 cd wipe
 ```
 
-Then, install the required dependencies using your preferred package manager:
+Next, install the required dependencies using your preferred package manager:
 
 ```shell
 npm install
@@ -32,7 +32,7 @@ or
 yarn install
 ```
 
-Additionally, create a `.env` file with the following variables:
+Additionally, create a `.env` file containing the following variables:
 
 ```shell
 # enable debug logs
@@ -47,35 +47,12 @@ PORT = "5050"
 # use any secret to authenticate incoming API request
 WIPE_AUTH_SECRET = "<your auth secret>"
 
-# webpush subject either any URL or mailto:<your email>
-WIPE_WEBPUSH_SUBJECT = "<your webpush subject>"
-WIPE_VAPID_PUBLIC = "<your public VAPID key>"
-WIPE_VAPID_PRIVATE = "<your private VAPID key>"
-```
-
-#### Pro Tip:
-
-You can generate VAPID keys using:
-
-```shell
-npx web-push generate-vapid-keys
-```
+# WhatsApp phone number to receive updates
+WIPE_SUBSCRIBER_PHONE = "<phone number>"
 
 ## Usage
 
-Once the setup is completed, you can initiate the HTTP and WhatsApp Socket service using the following command:
-
-If you have configured the environment globally, you can execute:
-
-```shell
-npm start
-```
-or
-```shell
-yarn start
-```
-
-Alternatively, you can load the `.env` file using:
+After completing the setup, you can start the HTTP and WhatsApp Socket services using the following command:
 
 ```shell
 npm run start:env
@@ -87,8 +64,8 @@ or
 yarn start:env
 ```
 
-> For the initial setup, you need to connect your WhatsApp by scanning a QR code from the terminal.
+> For the initial setup, connect your WhatsApp by scanning the QR code displayed in the terminal.
 
-After completing the setup process, the service will begin listening for the events to which you have subscribed.
+Once the setup process is complete, the service will start listening for the events you have subscribed to.
 
-For more information or inquiries, please contact the project owner: Rajat (rajatxt@proton.me)
+For more information or inquiries, please reach out to the project owner: Rajat (rajatxt@proton.me)

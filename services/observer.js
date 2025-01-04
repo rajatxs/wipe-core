@@ -1,10 +1,9 @@
 import debug from 'debug';
+import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
-import { sendPresenceUpdateNotification, sendStatusAddedNotification } from './push.js';
-import { TAG } from '../config/config.js';
-import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
-import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
+import { sendWANotification, registerWAEventBySubscription } from './wa.js';
+import { TAG } from '../config.js';
 
 /** @type {Map<string, number>} */
 const presenceUpdateCounts = new Map();
@@ -81,10 +80,6 @@ export async function dispatchPresenceUpdateEvent(event) {
                     status
                 );
             }
-
-            if (subs.notify === 1) {
-                return sendPresenceUpdateNotification(subs, status);
-            }
         }
         return Promise.resolve();
     });
@@ -95,7 +90,8 @@ export async function dispatchPresenceUpdateEvent(event) {
 /** Dispatch status added event */
 export async function dispatchStatusAddedEvent() {
     debug('wipe:observer')('status added');
-    return await sendStatusAddedNotification();
+    sendWANotification('new status has been added');
+    return Promise.resolve();
 }
 
 /**
@@ -103,9 +99,9 @@ export async function dispatchStatusAddedEvent() {
  * @returns {Promise<any>}
  */
 export async function registerPresenceUpdateEvent() {
-    const subslist = await getSubscriptions('presence.update', 5);
+    const subslist = await getSubscriptions('presence.update');
     let subsPromises = subslist.map(async (subs) => {
-        await registerSocketEventBySubscription(subs);
+        await registerWAEventBySubscription(subs);
         debug('wipe:observer')('subscribe event=%s id=%d', subs.event, subs.id);
     });
 

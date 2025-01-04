@@ -1,10 +1,9 @@
-import { existsSync, mkdirSync } from 'fs';
 import debug from 'debug';
-import { STORE_ROOT } from '../config/config.js';
-import { openWASocket, closeWASocket } from '../services/wa.js';
-import { startHttpServer, stopHttpServer } from '../server/server.js';
-import { openSQLiteDatabase, closeSQLiteDatabase } from '../utils/sqlite.js';
-import { configureWebPush } from '../utils/webpush.js';
+import { existsSync, mkdirSync } from 'fs';
+import { STORE_ROOT } from './config.js';
+import { openWASocket, closeWASocket } from './services/wa.js';
+import { startHttpServer, stopHttpServer } from './server/server.js';
+import { openSQLiteDatabase, closeSQLiteDatabase } from './utils/sqlite.js';
 
 async function terminate() {
     try {
@@ -24,7 +23,6 @@ async function terminate() {
         debug('wipe')('store directory created at %s', STORE_ROOT);
     }
 
-    configureWebPush();
     await openSQLiteDatabase();
     await openWASocket();
     await startHttpServer();
