@@ -1,14 +1,11 @@
 {
     "name": "@rxpm/wipe-core",
-    "version": "3.2.1",
-    "main": "scripts/start.js",
+    "version": "3.2.2",
+    "main": "main.js",
     "scripts": {
-        "start": "node scripts/start.js",
-        "start:env": "env-cmd node scripts/start.js",
-        "dev:env": "env-cmd nodemon scripts/start.js",
-        "test": "mocha services",
-        "test:env": "env-cmd mocha services",
-        "auth:token": "env-cmd node scripts/auth-token.js"
+        "start": "node main.js",
+        "dev": "env-cmd nodemon main.js",
+        "test": "env-cmd mocha services"
     },
     "author": {
         "name": "Rajat Sharma",
