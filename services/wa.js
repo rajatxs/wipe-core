@@ -115,6 +115,28 @@ export async function sendWANotification(text) {
     });
 }
 
+/**
+ * Registers new subscription of given `subs` based on `event`
+ * @param {Subscription} subs
+ * @returns {Promise<any>}
+ */
+export async function registerWAEventBySubscription(subs) {
+    const jid = jidEncode(subs.phone, 's.whatsapp.net');
+    let output;
+
+    if (!_waSocket) {
+        return;
+    }
+
+    switch (subs.event) {
+        case 'presence.update':
+            output = await _waSocket.presenceSubscribe(jid);
+            break;
+    }
+
+    return output;
+}
+
 export function closeWASocket() {
     if (_waSocket) {
         _waSocket.end(null);
