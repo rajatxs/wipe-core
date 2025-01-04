@@ -99,7 +99,7 @@ export async function dispatchStatusAddedEvent() {
  * @returns {Promise<any>}
  */
 export async function registerPresenceUpdateEvent() {
-    const subslist = await getSubscriptions('presence.update', 5);
+    const subslist = await getSubscriptions('presence.update');
     let subsPromises = subslist.map(async (subs) => {
         await registerWAEventBySubscription(subs);
         debug('wipe:observer')('subscribe event=%s id=%d', subs.event, subs.id);
