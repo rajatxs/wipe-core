@@ -26,12 +26,6 @@ Next, install the required dependencies using your preferred package manager:
 npm install
 ```
 
-or
-
-```shell
-yarn install
-```
-
 Additionally, create a `.env` file containing the following variables:
 
 ```shell
@@ -49,19 +43,14 @@ WIPE_AUTH_SECRET = "<your auth secret>"
 
 # WhatsApp phone number to receive updates
 WIPE_SUBSCRIBER_PHONE = "<phone number>"
+```
 
 ## Usage
 
 After completing the setup, you can start the HTTP and WhatsApp Socket services using the following command:
 
 ```shell
-npm run start:env
-```
-
-or
-
-```shell
-yarn start:env
+npm run dev
 ```
 
 > For the initial setup, connect your WhatsApp by scanning the QR code displayed in the terminal.
