@@ -1,12 +1,13 @@
+import debug from 'debug';
 import { Router } from 'express';
 import { join } from 'path';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'fs';
-import debug from 'debug';
-import { send200Response, send500Response } from '../../utils/http.js';
 import { NODE_ENV } from '../../config.js';
-import { authMiddleware } from '../middlewares/auth.js';
+import { authMiddleware } from '../middlewares.js';
+import { send200Response, send500Response } from '../../utils/http.js';
+
 import authRoutes from './auth.js';
 import subsRoutes from './subs.js';
 import presenceRoutes from './presence.js';

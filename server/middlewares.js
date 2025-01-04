@@ -1,6 +1,18 @@
-import { send400Response, send401Response, send500Response } from '../../utils/http.js';
-import { verifyToken } from '../../services/auth.js';
-import { AUTH_SECRET } from '../../config.js';
+import { TAG, AUTH_SECRET } from '../config.js';
+import { verifyToken } from '../services/auth.js';
+import { send400Response, send401Response, send500Response } from '../utils/http.js';
+
+/**
+ * Root middleware
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+export function rootMiddleware(req, res, next) {
+    req.locals = {};
+    req.locals.tag = req.header('X-Tag') || TAG;
+    next(null);
+}
 
 /**
  * Authentication middleware
