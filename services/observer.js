@@ -2,9 +2,8 @@ import debug from 'debug';
 import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
-import { sendWANotification } from './wa.js';
+import { sendWANotification, registerWAEventBySubscription } from './wa.js';
 import { TAG } from '../config/config.js';
-import { registerSocketEventBySubscription } from '../utils/wa-socket.js';
 
 /** @type {Map<string, number>} */
 const presenceUpdateCounts = new Map();
@@ -102,7 +101,7 @@ export async function dispatchStatusAddedEvent() {
 export async function registerPresenceUpdateEvent() {
     const subslist = await getSubscriptions('presence.update', 5);
     let subsPromises = subslist.map(async (subs) => {
-        await registerSocketEventBySubscription(subs);
+        await registerWAEventBySubscription(subs);
         debug('wipe:observer')('subscribe event=%s id=%d', subs.event, subs.id);
     });
 

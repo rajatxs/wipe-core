@@ -1,10 +1,5 @@
 import debug from 'debug';
-import {
-    send200Response,
-    send404Response,
-    send201Response,
-    send500Response,
-} from '../../utils/http.js';
+import { waSocket, registerWAEventBySubscription } from '../../services/wa.js';
 import {
     getAllSubscriptions,
     getSubscriptionById,
@@ -12,8 +7,12 @@ import {
     updateSubscription,
     deleteSubscription,
 } from '../../services/subs.js';
-import { waSocket } from '../../services/wa.js';
-import { registerSocketEventBySubscription } from '../../utils/wa-socket.js';
+import {
+    send200Response,
+    send404Response,
+    send201Response,
+    send500Response,
+} from '../../utils/http.js';
 
 /**
  * Sends all subscription records
@@ -67,7 +66,7 @@ export async function addNewSubscription(req, res) {
         const subs = await getSubscriptionById(subId);
 
         if (waSocket()) {
-            await registerSocketEventBySubscription(subs);
+            await registerWAEventBySubscription(subs);
             debug('wipe:controller:subs')(
                 'subscribe event=%s id=%d',
                 subs.event,
