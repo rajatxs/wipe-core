@@ -1,4 +1,4 @@
-import { TAG } from '../../config/config.js';
+import { TAG } from '../../config.js';
 
 /**
  * Root middleware

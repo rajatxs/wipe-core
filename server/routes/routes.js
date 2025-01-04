@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'fs';
 import debug from 'debug';
 import { send200Response, send500Response } from '../../utils/http.js';
-import { NODE_ENV } from '../../config/config.js';
+import { NODE_ENV } from '../../config.js';
 import { authMiddleware } from '../middlewares/auth.js';
 import authRoutes from './auth.js';
 import subsRoutes from './subs.js';

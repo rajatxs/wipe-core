@@ -1,7 +1,7 @@
 import debug from 'debug';
 import fs from 'fs';
 import { join } from 'path';
-import { SQLITE_DB_FILE, UPLOAD_ROOT } from '../../config/config.js';
+import { SQLITE_DB_FILE, UPLOAD_ROOT } from '../../config.js';
 import { send200Response, send500Response } from '../../utils/http.js';
 
 /**

@@ -3,7 +3,7 @@ import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
 import { sendWANotification, registerWAEventBySubscription } from './wa.js';
-import { TAG } from '../config/config.js';
+import { TAG } from '../config.js';
 
 /** @type {Map<string, number>} */
 const presenceUpdateCounts = new Map();

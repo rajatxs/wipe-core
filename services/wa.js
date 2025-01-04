@@ -5,7 +5,7 @@ import makeWASocket, {
     useMultiFileAuthState,
 } from '@whiskeysockets/baileys';
 import { jidEncode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
-import { SESSION_ROOT, SUBSCRIBER_PHONE } from '../config/config.js';
+import { SESSION_ROOT, SUBSCRIBER_PHONE } from '../config.js';
 import {
     registerPresenceUpdateEvent,
     dispatchPresenceUpdateEvent,

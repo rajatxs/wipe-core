@@ -1,6 +1,6 @@
 import debug from 'debug';
 import { existsSync, mkdirSync } from 'fs';
-import { STORE_ROOT } from './config/config.js';
+import { STORE_ROOT } from './config.js';
 import { openWASocket, closeWASocket } from './services/wa.js';
 import { startHttpServer, stopHttpServer } from './server/server.js';
 import { openSQLiteDatabase, closeSQLiteDatabase } from './utils/sqlite.js';

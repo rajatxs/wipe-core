@@ -1,6 +1,6 @@
 import { send400Response, send401Response, send500Response } from '../../utils/http.js';
 import { verifyToken } from '../../services/auth.js';
-import { AUTH_SECRET } from '../../config/config.js';
+import { AUTH_SECRET } from '../../config.js';
 
 /**
  * Authentication middleware

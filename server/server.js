@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import debug from 'debug';
-import { PORT } from '../config/config.js';
+import { PORT } from '../config.js';
 import { rootMiddleware } from './middlewares/root.js';
 import routes from './routes/routes.js';
 import { send404Response, send500Response } from '../utils/http.js';

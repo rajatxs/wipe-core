@@ -1,6 +1,6 @@
 import path from 'path';
 import { homedir } from 'os';
-import { getTag } from '../utils/common.js';
+import { getTag } from './utils/common.js';
 
 // global vars
 export const NODE_ENV = process.env.NODE_ENV || 'development';

@@ -1,6 +1,6 @@
 import sqlite3 from 'sqlite3';
 import debug from 'debug';
-import { SQLITE_DB_FILE } from '../config/config.js';
+import { SQLITE_DB_FILE } from '../config.js';
 
 /** @type {sqlite3.Database} */
 var instance;
