@@ -46,13 +46,14 @@ export function getSubscriptionByPhone(event, phone) {
 
 /**
  * Inserts subscription record
- * @param {Pick<Subscription, 'alias'|'event'|'phone'|'tag'>} data
+ * @param {Pick<Subscription, 'alias'|'event'|'notify'|'phone'|'tag'>} data
  * @returns {Promise<number>}
  */
 export function createSubscription(data) {
-    return insertRow('INSERT INTO subs(alias, event, phone, tag) VALUES (?, ?, ?, ?);', [
+    return insertRow('INSERT INTO subs(alias, event, notify, phone, tag) VALUES (?, ?, ?, ?, ?);', [
         data.alias,
         data.event,
+        data.notify || 0,
         data.phone,
         data.tag,
     ]);
