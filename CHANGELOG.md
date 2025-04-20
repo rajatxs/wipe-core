@@ -58,3 +58,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Sending presence alerts in the form of WA notification.
 - Disable presence alerts by default.
+
+## v3.3.2
+
+### Dependency changes
+- Replace `@whiskeysockets/baileys` with `baileys`
