@@ -106,7 +106,7 @@ export async function sendWANotification(text) {
     const jid = jidEncode(SUBSCRIBER_PHONE, 's.whatsapp.net');
 
     if (!_waSocket) {
-        return;
+        return Promise.resolve();
     }
 
     await _waSocket.sendMessage(jid, {
