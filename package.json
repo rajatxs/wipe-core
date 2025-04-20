@@ -1,6 +1,6 @@
 {
     "name": "@rxpm/wipe-core",
-    "version": "3.3.0",
+    "version": "3.3.1",
     "main": "main.js",
     "scripts": {
         "start": "node main.js",
@@ -10,7 +10,7 @@
     "author": {
         "name": "Rajat Sharma",
         "email": "rajatxt@proton.me",
-        "url": "https://github.com/rajatxs"
+        "url": "https://bitbucket.org/rajatxs"
     },
     "type": "module",
     "types": "index.d.ts",
@@ -22,13 +22,7 @@
         "wipe-server",
         "wipe-core"
     ],
-    "repository": "https://github.com/rajatxs/wipe-core.git",
-    "readme": "https://github.com/rajatxs/wipe-core#readme",
-    "bugs": {
-        "email": "rajatxt@proton.me",
-        "url": "https://github.com/rajatxs/wipe-core/issues"
-    },
-    "markdown": "github",
+    "repository": "https://bitbucket.org/rajatxs/wipe-core.git",
     "dependencies": {
         "@whiskeysockets/baileys": "^6.7.9",
         "bcryptjs": "^2.4.3",
