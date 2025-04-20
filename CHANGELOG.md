@@ -52,3 +52,9 @@ All notable changes to this project will be documented in this file.
 - Upgraded `nodemon 3.1.0` package to version "3.1.9"
 - Upgraded `@flydotio/dockerfile 0.5.0` package to version "0.5.9"
 - Upgraded `@types/mocha 10.0.6` package to version "10.0.10"
+
+## v3.3.1
+
+### Added
+- Sending presence alerts in the form of WA notification.
+- Disable presence alerts by default.
