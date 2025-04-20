@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
+import { jidDecode } from 'baileys/lib/WABinary/jid-utils.js';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
 import { sendWANotification, registerWAEventBySubscription } from './wa.js';
