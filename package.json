@@ -10,7 +10,7 @@
     "author": {
         "name": "Rajat Sharma",
         "email": "rajatxt@proton.me",
-        "url": "https://bitbucket.org/rajatxs"
+        "url": "https://github.com/rajatxs"
     },
     "type": "module",
     "types": "index.d.ts",
@@ -18,11 +18,16 @@
     "preferGlobal": false,
     "keywords": [
         "wipe",
-        "whatsapp",
         "wipe-server",
         "wipe-core"
     ],
-    "repository": "https://bitbucket.org/rajatxs/wipe-core.git",
+    "markdown": "github",
+    "repository": "https://github.com/rajatxs/wipe-core.git",
+    "readme": "https://github.com/rajatxs/wipe-core?tab=readme-ov-file#readme",
+    "bugs": {
+        "email": "rajatxt@proton.me",
+        "url": "https://github.com/rajatxs/wipe-core/issues"
+    },
     "dependencies": {
         "baileys": "^6.7.16",
         "bcryptjs": "^2.4.3",
