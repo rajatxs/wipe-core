@@ -1,6 +1,6 @@
 {
     "name": "@rxpm/wipe-core",
-    "version": "3.3.0",
+    "version": "3.3.2",
     "main": "main.js",
     "scripts": {
         "start": "node main.js",
@@ -18,19 +18,18 @@
     "preferGlobal": false,
     "keywords": [
         "wipe",
-        "whatsapp",
         "wipe-server",
         "wipe-core"
     ],
+    "markdown": "github",
     "repository": "https://github.com/rajatxs/wipe-core.git",
-    "readme": "https://github.com/rajatxs/wipe-core#readme",
+    "readme": "https://github.com/rajatxs/wipe-core?tab=readme-ov-file#readme",
     "bugs": {
         "email": "rajatxt@proton.me",
         "url": "https://github.com/rajatxs/wipe-core/issues"
     },
-    "markdown": "github",
     "dependencies": {
-        "@whiskeysockets/baileys": "^6.7.9",
+        "baileys": "^6.7.16",
         "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
         "debug": "^4.4.0",

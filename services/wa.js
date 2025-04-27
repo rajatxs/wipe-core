@@ -3,8 +3,8 @@ import makeWASocket, {
     DisconnectReason,
     fetchLatestBaileysVersion,
     useMultiFileAuthState,
-} from '@whiskeysockets/baileys';
-import { jidEncode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
+} from 'baileys';
+import { jidEncode } from 'baileys/lib/WABinary/jid-utils.js';
 import { SESSION_ROOT, SUBSCRIBER_PHONE } from '../config.js';
 import {
     registerPresenceUpdateEvent,
@@ -106,7 +106,7 @@ export async function sendWANotification(text) {
     const jid = jidEncode(SUBSCRIBER_PHONE, 's.whatsapp.net');
 
     if (!_waSocket) {
-        return;
+        return Promise.resolve();
     }
 
     await _waSocket.sendMessage(jid, {

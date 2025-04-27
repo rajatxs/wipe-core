@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { jidDecode } from '@whiskeysockets/baileys/lib/WABinary/jid-utils.js';
+import { jidDecode } from 'baileys/lib/WABinary/jid-utils.js';
 import { getSubscriptions, getSubscriptionByPhone } from './subs.js';
 import { insertPresenceHistoryRecord } from './presence.js';
 import { sendWANotification, registerWAEventBySubscription } from './wa.js';
@@ -65,6 +65,7 @@ export async function dispatchPresenceUpdateEvent(event) {
 
     let subsPromises = subslist.map(async (subs) => {
         if (subs.enabled === 1) {
+            // insert presence history record
             const sub_id = subs.id;
             const recordId = await insertPresenceHistoryRecord({
                 status,
@@ -79,6 +80,12 @@ export async function dispatchPresenceUpdateEvent(event) {
                     sub_id,
                     status
                 );
+            }
+
+            // send presence notification
+            if (subs.notify === 1) {
+                const msg = `${subs.alias} is ${status === 1 ? 'online' : 'offline'}`;
+                await sendWANotification(msg);
             }
         }
         return Promise.resolve();
