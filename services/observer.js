@@ -94,10 +94,23 @@ export async function dispatchPresenceUpdateEvent(event) {
     return Promise.all(subsPromises);
 }
 
-/** Dispatch status added event */
+/**
+ * Dispatch status added event
+ * @returns {Promise<void>}
+ */
 export async function dispatchStatusAddedEvent() {
     debug('wipe:observer')('status added');
-    sendWANotification('new status has been added');
+    await sendWANotification('new status has been added');
+    return Promise.resolve();
+}
+
+/**
+ * Dispatch contacts updated event
+ * @returns {Promise<void>}
+ */
+export async function dispatchContactsUpdatedEvent() {
+    debug('wipe:observer')('contacts updated');
+    await sendWANotification('Contacts have been updated.');
     return Promise.resolve();
 }
 
