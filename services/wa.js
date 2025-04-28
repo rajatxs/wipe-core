@@ -10,6 +10,7 @@ import {
     registerPresenceUpdateEvent,
     dispatchPresenceUpdateEvent,
     dispatchStatusAddedEvent,
+    dispatchContactsUpdatedEvent,
     resetPresenceUpdateCounts,
 } from './observer.js';
 
@@ -71,15 +72,18 @@ export async function openWASocket() {
             }
         }
 
+        // save credentials
         if (events['creds.update']) {
             await saveCreds();
         }
 
+        // handle presence update
         if (events['presence.update']) {
             const event = events['presence.update'];
             await dispatchPresenceUpdateEvent(event);
         }
 
+        // handle chat update
         if (events['chats.update'] && Array.isArray(events['chats.update'])) {
             const list = events['chats.update'];
             const statusFlag = list.some(function (item) {
@@ -90,6 +94,15 @@ export async function openWASocket() {
 
             if (statusFlag) {
                 await dispatchStatusAddedEvent();
+            }
+        }
+
+        // handle contact update
+        if (events['contacts.update']) {
+            const list = events['contacts.update'];
+
+            if (Array.isArray(list) && list.length > 0) {
+                await dispatchContactsUpdatedEvent();
             }
         }
     });
