@@ -102,7 +102,8 @@ export async function openWASocket() {
             const list = events['contacts.update'];
 
             if (Array.isArray(list) && list.length > 0) {
-                await dispatchContactsUpdatedEvent();
+                const [event] = list;
+                await dispatchContactsUpdatedEvent(event);
             }
         }
     });
