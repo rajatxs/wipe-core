@@ -65,16 +65,16 @@ export async function addNewSubscription(req, res) {
         const subId = await createSubscription(data);
         const subs = await getSubscriptionById(subId);
 
-        if (waSocket()) {
+        if (waSocket() && subs && subs.event === 'presence.update') {
             await registerWAEventBySubscription(subs);
             debug('wipe:controller:subs')(
-                'subscribe event=%s id=%d',
+                'subscribe presence event id=%d',
                 subs.event,
                 subs.id
             );
         }
 
-        send201Response(res, 'Subscription added', { id: subId });
+        send201Response(res, 'Subscription added', subs);
     } catch (error) {
         debug('wipe:controller:subs:error')(error);
         send500Response(res, "Couldn't add new subscription");
