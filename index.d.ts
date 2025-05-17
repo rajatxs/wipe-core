@@ -8,7 +8,7 @@ declare namespace Express {
     }
 }
 
-declare type SubscriptionEvent = 'presence.update';
+declare type SubscriptionEvent = 'presence.update' | 'contacts.update';
 
 declare interface Subscription {
     id?: number;
