@@ -106,12 +106,24 @@ export async function dispatchStatusAddedEvent() {
 
 /**
  * Dispatch contacts updated event
+ * @param {object} event
  * @returns {Promise<void>}
  */
-export async function dispatchContactsUpdatedEvent() {
-    debug('wipe:observer')('contacts updated');
-    await sendWANotification('Contacts have been updated.');
-    return Promise.resolve();
+export async function dispatchContactsUpdatedEvent(event = {}) {
+    try {
+        const { user: phone } = jidDecode(event.id);
+        const subslist = await getSubscriptionByPhone('contacts.update', phone);
+
+        for (let sub of subslist) {
+            debug('wipe:observer')('contacts updated sub_id=%d', sub.id);
+
+            if (sub.notify === 1) {
+                await sendWANotification(`${sub.alias}'s contact has been updated.`);
+            }
+        }
+    } catch (error) {
+        debug('wipe:observer:error')('contacts update error=%s', error.message);
+    }
 }
 
 /**
